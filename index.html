@@ -31,6 +31,7 @@
 .dm-badge[hidden]{display:none!important}
 .dm-contact{display:flex!important;align-items:center;justify-content:space-between;gap:5px}
 .dm-contact .dm-badge{flex:none}
+.dm-sound-toggle{border:1px solid #8758a8;border-radius:11px;background:#251b4b;color:#fff;padding:9px 12px;font-weight:700}.dm-sound-toggle[aria-pressed="true"]{border-color:#40e7b5;background:#154a49}.dm-sound-toggle:focus-visible{outline:3px solid #20d8ff;outline-offset:2px}
 
 .dm-modal{position:fixed;inset:0;z-index:75;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
 .dm-modal.open{display:flex}
@@ -53,7 +54,7 @@
 </head>
 <body>
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
-<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button data-demo>♙ Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
+<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button data-demo>♙ Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button data-demo>♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
@@ -65,7 +66,7 @@
  <button class="pink" id="onlineCloseBottom" type="button" style="width:100%">Zatvori</button></div>
 </div>
 <div id="dmModal" class="dm-modal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-hidden="true">
- <div class="dm-dialog"><div class="dm-head"><h2 id="dmTitle">✉ Privatne poruke</h2><button id="dmClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+ <div class="dm-dialog"><div class="dm-head"><h2 id="dmTitle">✉ Privatne poruke</h2><div style="display:flex;align-items:center;gap:8px"><button id="dmSoundToggle" class="dm-sound-toggle" type="button" aria-pressed="false" title="Uključi zvuk novih poruka">🔕 Zvuk</button><button id="dmClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
  <div class="dm-body"><div class="dm-contacts"><input id="dmSearch" type="search" placeholder="Pronađi člana..." aria-label="Pretraži članove"><div id="dmContacts">Učitavanje članova...</div></div>
  <div class="dm-conversation"><div class="dm-to" id="dmTo">Odaberi člana za razgovor</div><div class="dm-messages" id="dmMessages" aria-live="polite"><p class="online-empty">Odaberi člana s lijeve strane.</p></div>
  <form class="dm-form" id="dmForm"><input id="dmText" maxlength="2000" placeholder="Napiši privatnu poruku..." aria-label="Privatna poruka" required disabled><button id="dmSend" class="pink" type="submit" disabled>Pošalji</button></form><div class="dm-hint" id="dmHint" role="status">Samo ti i primalac možete vidjeti ovaj razgovor.</div></div></div></div>
@@ -321,6 +322,46 @@ const dmSend=document.getElementById('dmSend');
 const dmHint=document.getElementById('dmHint');
 let dmUser=null,dmSelected=null,dmPeople=[],dmTimer=null,dmRequest=0,dmLastSent=0,dmPreviousFocus=null,dmLoading=false;
 let dmUnreadTimer=null,dmUnreadBusy=false,dmUnreadCounts=new Map(),dmUnreadTotal=0,dmUnreadGeneration=0;
+// Zvuk se aktivira iskljucivo nakon korisnickog klika.
+const dmSoundToggle=document.getElementById('dmSoundToggle');
+const dmSoundNav=document.getElementById('dmSoundNav');
+dmSoundNav.addEventListener('click',()=>dmSoundToggle.click());
+let dmSoundEnabled=false,dmAudioContext=null,dmUnreadInitialized=false;
+function dmUpdateSoundButton(){
+  dmSoundToggle.setAttribute('aria-pressed',String(dmSoundEnabled));
+  dmSoundToggle.textContent=dmSoundEnabled?'🔊 Zvuk uključen':'🔕 Zvuk';
+  dmSoundToggle.title=dmSoundEnabled?'Isključi zvuk novih poruka':'Uključi zvuk novih poruka';
+  dmSoundNav.textContent=dmSoundEnabled?'🔊 Zvuk poruka':'🔕 Zvuk poruka';
+  dmSoundNav.setAttribute('aria-pressed',String(dmSoundEnabled));
+}
+dmSoundToggle.addEventListener('click',async()=>{
+  if(dmSoundEnabled){dmSoundEnabled=false;dmUpdateSoundButton();notice('Zvuk privatnih poruka je isključen.');return;}
+  try{
+    const AudioCtor=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtor)throw new Error('Preglednik ne podržava zvuk.');
+    if(!dmAudioContext)dmAudioContext=new AudioCtor();
+    await dmAudioContext.resume();
+    if(dmAudioContext.state!=='running')throw new Error('Preglednik nije dozvolio zvuk.');
+    dmSoundEnabled=true;dmUpdateSoundButton();notice('Zvuk novih privatnih poruka je uključen.');
+    dmPlayNotificationSound();
+  }catch(err){dmSoundEnabled=false;dmUpdateSoundButton();notice('Zvuk nije dostupan: '+err.message);}
+});
+function dmPlayNotificationSound(){
+  if(!dmSoundEnabled||!dmAudioContext||dmAudioContext.state!=='running')return;
+  try{
+    const ctx=dmAudioContext,now=ctx.currentTime;
+    for(const [offset,freq] of [[0,660],[0.13,880]]){
+      const osc=ctx.createOscillator(),gain=ctx.createGain();
+      osc.type='sine';osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0.0001,now+offset);
+      gain.gain.exponentialRampToValueAtTime(0.09,now+offset+0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+offset+0.17);
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.start(now+offset);osc.stop(now+offset+0.18);
+    }
+  }catch(err){console.warn('Zvuk poruke nije reproduciran:',err);}
+}
+
 const dmOriginalTitle=document.title;
 const dmOpenButtons=[...document.querySelectorAll('[data-dm-open]')];
 for(const b of dmOpenButtons){
@@ -348,14 +389,15 @@ async function dmCheckUnread(){
     const counts=new Map();
     for(const msg of data||[])counts.set(msg.sender_id,(counts.get(msg.sender_id)||0)+1);
     const total=(data||[]).length;
-    if(total>dmUnreadTotal&&dmUnreadTotal>=0){
+    if(dmUnreadInitialized&&total>dmUnreadTotal){
       const newSender=[...counts.keys()].find(id=>(counts.get(id)||0)>(dmUnreadCounts.get(id)||0));
       if(newSender){
         const person=dmPeople.find(p=>p.id===newSender);
         notice('✉ Nova privatna poruka'+(person?' od '+person.username:''));
+        dmPlayNotificationSound();
       }
     }
-    dmUnreadCounts=counts;dmUnreadTotal=total;dmShowBadges();
+    dmUnreadCounts=counts;dmUnreadTotal=total;dmUnreadInitialized=true;dmShowBadges();
   }catch(err){console.warn('Provjera privatnih poruka:',err.message);}
   finally{dmUnreadBusy=false;}
 }
@@ -372,7 +414,7 @@ function dmInfo(message){dmMessages.replaceChildren();const p=document.createEle
 function updateDmAuth(user){
   if(dmUser?.id===user?.id)return;
   dmUser=user||null;dmSelected=null;dmPeople=[];dmRequest++;dmUnreadGeneration++;
-  dmUnreadCounts=new Map();dmUnreadTotal=0;dmShowBadges();
+  dmUnreadCounts=new Map();dmUnreadTotal=0;dmUnreadInitialized=false;dmShowBadges();
   if(dmUnreadTimer){clearInterval(dmUnreadTimer);dmUnreadTimer=null;}
   if(dmUser){dmCheckUnread();dmUnreadTimer=setInterval(dmCheckUnread,3000);}
   if(dmTimer){clearInterval(dmTimer);dmTimer=null;}

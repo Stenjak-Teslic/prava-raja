@@ -90,7 +90,7 @@
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
 <nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
-<section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
+<section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">🎶 Radio Studio M Teslić uživo. Pritisni ▶ za slušanje. Ako stream nije dostupan, pokušaj ponovo kasnije.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
 <aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
@@ -144,6 +144,7 @@
  <p id="authMessage" class="auth-msg" role="status" aria-live="polite"></p><p class="auth-help">Registracijom se otvara korisnički račun. Ako je potvrda e-maila uključena, prije prve prijave potrebno je otvoriti link iz e-mail poruke.</p>
  </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
 <script>
 // PRAVA RAJA - uredjivanje vlastitog profila
 const profileModal=document.getElementById('profileModal');
@@ -257,7 +258,53 @@ document.getElementById('profileForm').addEventListener('submit',async e=>{
 
 </script>
 <script>
-const toast=document.getElementById('toast');let toastTimer;function notice(s){toast.textContent=s;toast.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.style.display='none',3500)}document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>notice('Ova funkcija stiže u sljedećim koracima.')));const audio=document.getElementById('audio');const play=document.getElementById('play');document.getElementById('vol').addEventListener('input',e=>audio.volume=Number(e.target.value)/100);audio.volume=.75;play.addEventListener('click',()=>notice('Radio stream još nije povezan. Uskoro ćemo ga testirati.'));
+const toast=document.getElementById('toast');let toastTimer;function notice(s){toast.textContent=s;toast.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.style.display='none',3500)}document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>notice('Ova funkcija stiže u sljedećim koracima.')));const audio=document.getElementById('audio');const play=document.getElementById('play');document.getElementById('vol').addEventListener('input',e=>audio.volume=Number(e.target.value)/100);audio.volume=.75;// Radio Studio M Teslic: HLS u Chrome/Firefox preko hls.js; Safari koristi izvorni HLS.
+const RADIO_STREAM='https://stream.leftor.com/proxy/studiom2/m3u8';
+const radioStatus=document.getElementById('radioStatus');
+let radioHls=null,radioStarting=false;
+function setRadioStatus(message){radioStatus.textContent=message;}
+function radioStop(){
+  audio.pause();
+  if(radioHls){radioHls.destroy();radioHls=null;}
+  audio.removeAttribute('src');audio.load();
+  play.textContent='▶';play.setAttribute('aria-label','Pokreni radio');
+  setRadioStatus('Radio zaustavljen');radioStarting=false;
+}
+async function radioStart(){
+  if(radioStarting)return;
+  radioStarting=true;play.textContent='…';setRadioStatus('Povezivanje s radiom...');
+  try{
+    if(audio.canPlayType('application/vnd.apple.mpegurl')){
+      audio.src=RADIO_STREAM;
+      await audio.play();
+    }else if(window.Hls&&Hls.isSupported()){
+      radioHls=new Hls({liveSyncDurationCount:3,maxBufferLength:20});
+      const hls=radioHls;
+      await new Promise((resolve,reject)=>{
+        const timeout=setTimeout(()=>reject(new Error('Radio se nije povezao na vrijeme.')),15000);
+        hls.on(Hls.Events.MANIFEST_PARSED,()=>{clearTimeout(timeout);resolve();});
+        hls.on(Hls.Events.ERROR,(_event,data)=>{if(data.fatal){clearTimeout(timeout);reject(new Error('Stream trenutno nije dostupan.'));}});
+        hls.loadSource(RADIO_STREAM);hls.attachMedia(audio);
+      });
+      await audio.play();
+    }else{
+      throw new Error('Ovaj preglednik ne podržava radio stream.');
+    }
+    play.textContent='❚❚';play.setAttribute('aria-label','Zaustavi radio');
+    setRadioStatus('🔴 UŽIVO — Radio Studio M');
+  }catch(err){
+    radioStop();setRadioStatus('Radio nije pokrenut. Pokušaj ponovo.');
+    notice('Radio: '+(err?.message||'Neuspješno povezivanje.'));
+  }finally{radioStarting=false;}
+}
+play.addEventListener('click',()=>{
+  if(radioStarting)return;
+  if(!audio.paused||radioHls){radioStop();return;}
+  radioStart();
+});
+audio.addEventListener('error',()=>{
+  if(!radioStarting&&!audio.paused){radioStop();setRadioStatus('Prekid veze. Pokušaj ponovo.');}
+});
 
 // Prava Raja: registracija, prijava i odjava (bez tajnih server ključeva)
 const SUPABASE_URL='https://zqcbnijlwbsxutdsgetj.supabase.co';

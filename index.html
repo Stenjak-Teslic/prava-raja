@@ -36,7 +36,7 @@
 .dm-modal{position:fixed;inset:0;z-index:75;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
 .dm-modal.open{display:flex}
 .dm-dialog{width:min(850px,100%);height:min(690px,90vh);background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 65px #000c}
-.dm-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid #405080}
+.dm-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:1px solid #405080;flex-shrink:0}
 .dm-head h2{margin:0;font-size:21px}.dm-body{display:grid;grid-template-columns:230px minmax(0,1fr);flex:1;min-height:0}
 .dm-contacts{padding:12px;border-right:1px solid #405080;overflow-y:auto}.dm-contacts input{width:100%;background:#101d41;color:#fff;border:1px solid #5262a2;border-radius:10px;padding:10px;margin-bottom:10px}
 .dm-contact{display:block;width:100%;text-align:left;border:1px solid transparent;border-radius:10px;background:transparent;color:#fff;padding:11px 9px;margin-bottom:4px;overflow-wrap:anywhere}.dm-contact:hover,.dm-contact.selected{background:#493078;border-color:#8556ba}
@@ -66,7 +66,7 @@
  <button class="pink" id="onlineCloseBottom" type="button" style="width:100%">Zatvori</button></div>
 </div>
 <div id="dmModal" class="dm-modal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-hidden="true">
- <div class="dm-dialog"><div class="dm-head"><h2 id="dmTitle">✉ Privatne poruke</h2><div style="display:flex;align-items:center;gap:8px"><button id="dmSoundToggle" class="dm-sound-toggle" type="button" aria-pressed="false" title="Uključi zvuk novih poruka">🔕 Zvuk</button><button id="dmClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+ <div class="dm-dialog"><div class="dm-head"><h2 id="dmTitle">✉ Privatne poruke</h2><div style="display:flex;align-items:center;gap:8px"><button id="dmSoundToggle" class="dm-sound-toggle" type="button" aria-pressed="false" title="Uključi zvuk novih poruka">🔕 Zvuk</button><button id="dmClose" class="online-close" type="button" aria-label="Zatvori">×</button></div></div>
  <div class="dm-body"><div class="dm-contacts"><input id="dmSearch" type="search" placeholder="Pronađi člana..." aria-label="Pretraži članove"><div id="dmContacts">Učitavanje članova...</div></div>
  <div class="dm-conversation"><div class="dm-to" id="dmTo">Odaberi člana za razgovor</div><div class="dm-messages" id="dmMessages" aria-live="polite"><p class="online-empty">Odaberi člana s lijeve strane.</p></div>
  <form class="dm-form" id="dmForm"><input id="dmText" maxlength="2000" placeholder="Napiši privatnu poruku..." aria-label="Privatna poruka" required disabled><button id="dmSend" class="pink" type="submit" disabled>Pošalji</button></form><div class="dm-hint" id="dmHint" role="status">Samo ti i primalac možete vidjeti ovaj razgovor.</div></div></div></div>

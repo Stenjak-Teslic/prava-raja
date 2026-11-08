@@ -1,3 +1,4 @@
+````
 ```
 <!doctype html>
 <html lang="bs">
@@ -52,6 +53,17 @@
 .online-list .person strong{overflow-wrap:anywhere}
 .online-empty{color:var(--muted);font-size:13px;line-height:1.5}
 
+.dm-contact-row{display:flex;align-items:center;gap:3px}.dm-contact-row>.dm-contact{flex:1;min-width:0}.dm-contact-row>.dm-profile-action{flex:none;color:#9ef6ff;padding:7px}
+/* Pregled profila clanova */
+.profile-link{border:0;background:transparent;color:#ffdb72;font:inherit;font-weight:700;padding:2px 3px;border-radius:6px;text-align:left;cursor:pointer}
+.profile-link:hover{text-decoration:underline;color:#fff}
+.profile-link:focus-visible{outline:2px solid #20d8ff;outline-offset:3px}
+.profile-readonly{display:none}
+.profile-modal.viewing .profile-readonly{display:block}
+.profile-modal.viewing #profileForm{display:none}
+.profile-readonly p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+.profile-readonly .profile-label{font-size:12px;color:#b8c5e3;margin-bottom:4px}
+.profile-readonly .profile-value{background:#0a1230;border:1px solid #6171ae;padding:12px;border-radius:11px;margin:0 0 15px}
 /* Korisnicki profili */
 .profile-modal{position:fixed;inset:0;z-index:85;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
 .profile-modal.open{display:flex}
@@ -112,10 +124,11 @@ const profileModal=document.getElementById('profileModal');
 const profileMessage=document.getElementById('profileMessage');
 const profilePhoto=document.getElementById('profilePhoto');
 const profileDefaultPhoto=profilePhoto.src;
-let profileOwner=null,profilePreviousFocus=null,profileBusy=false;
+let profileOwner=null,profilePreviousFocus=null,profileBusy=false,profileRequest=0;
 function closeProfile(){
   if(!profileModal.classList.contains('open'))return;
-  profileModal.classList.remove('open');profileModal.setAttribute('aria-hidden','true');
+  profileModal.classList.remove('open');profileModal.classList.remove('viewing');profileModal.setAttribute('aria-hidden','true');
+  profileRequest++;
   if(profilePreviousFocus?.isConnected)profilePreviousFocus.focus();
 }
 document.getElementById('profileClose').addEventListener('click',closeProfile);
@@ -126,7 +139,8 @@ async function openMyProfile(){
   const {data:sessionData,error:sessionError}=await db.auth.getSession();
   if(sessionError||!sessionData.session?.user){openAuth('login');return;}
   const user=sessionData.session.user;
-  profileOwner=user.id;profilePreviousFocus=document.activeElement;
+  profileOwner=user.id;profilePreviousFocus=document.activeElement;const request=++profileRequest;
+  profileModal.classList.remove('viewing');document.getElementById('profileTitle').textContent='👤 Moj profil';
   profileModal.classList.add('open');profileModal.setAttribute('aria-hidden','false');
   profileMessage.textContent='Učitavanje profila...';
   profilePhoto.src=profileDefaultPhoto;
@@ -136,7 +150,7 @@ async function openMyProfile(){
   document.getElementById('profileName').textContent=user.user_metadata?.username||'Član';
   document.getElementById('profileClose').focus();
   const {data,error}=await db.from('profiles').select('username,avatar_url,bio,location').eq('id',user.id).maybeSingle();
-  if(profileOwner!==user.id||!profileModal.classList.contains('open'))return;
+  if(request!==profileRequest||profileOwner!==user.id||!profileModal.classList.contains('open'))return;
   if(error){profileMessage.textContent='Ne mogu učitati profil: '+friendlyError(error);return;}
   if(!data){profileMessage.textContent='Profil nije pronađen u bazi.';return;}
   document.getElementById('profileName').textContent=data.username||'Član';
@@ -144,6 +158,40 @@ async function openMyProfile(){
   document.getElementById('profileBio').value=data.bio||'';
   if(data.avatar_url)profilePhoto.src=data.avatar_url;
   profileMessage.textContent='Ovdje možeš urediti svoj profil.';
+}
+// Pregled tudjeg profila: samo javni podaci, bez mogucnosti uredjivanja.
+async function openMemberProfile(memberId){
+  if(!db||!memberId)return;
+  const {data:sessionData,error:sessionError}=await db.auth.getSession();
+  const me=sessionData?.session?.user;
+  if(sessionError||!me){openAuth('login');return;}
+  if(me.id===memberId){openMyProfile();return;}
+  const request=++profileRequest;
+  profileOwner=null;profilePreviousFocus=document.activeElement;
+  profileModal.classList.add('viewing','open');profileModal.setAttribute('aria-hidden','false');
+  document.getElementById('profileTitle').textContent='👤 Profil člana';
+  document.getElementById('profileName').textContent='Učitavanje...';
+  profilePhoto.src=profileDefaultPhoto;
+  document.getElementById('profileViewLocation').textContent='—';
+  document.getElementById('profileViewBio').textContent='—';
+  profileMessage.textContent='Učitavanje profila...';
+  document.getElementById('profileClose').focus();
+  try{
+    const {data,error}=await db.from('profiles').select('username,avatar_url,bio,location').eq('id',memberId).maybeSingle();
+    if(request!==profileRequest||!profileModal.classList.contains('open'))return;
+    if(error)throw error;
+    if(!data){profileMessage.textContent='Profil nije pronađen.';return;}
+    document.getElementById('profileName').textContent=data.username||'Član';
+    document.getElementById('profileViewLocation').textContent=data.location||'Nije navedeno';
+    document.getElementById('profileViewBio').textContent=data.bio||'Član još nije napisao opis.';
+    if(data.avatar_url)profilePhoto.src=data.avatar_url;
+    profileMessage.textContent='Javni profil člana. Samo vlasnik može mijenjati podatke.';
+  }catch(err){if(request===profileRequest)profileMessage.textContent='Ne mogu učitati profil: '+friendlyError(err);}
+}
+function memberProfileButton(id,name,extraClass=''){
+  const b=document.createElement('button');b.type='button';b.className='profile-link '+extraClass;
+  b.textContent=name||'Član';b.title='Pogledaj profil člana '+(name||'');
+  b.dataset.profileId=id;b.addEventListener('click',()=>openMemberProfile(id));return b;
 }
 document.getElementById('profileFile').addEventListener('change',e=>{
   const file=e.target.files?.[0];if(!file)return;
@@ -258,7 +306,7 @@ async function loadChat(){
       const item=document.createElement('div');item.className='msg';
       const avatar=document.createElement('div');avatar.className='avatar';avatar.textContent=m.user_id===chatUser.id?'💜':'👤';
       const body=document.createElement('div');body.style.minWidth='0';
-      const name=document.createElement('strong');name.textContent=names[m.user_id]||'Član';
+      const name=memberProfileButton(m.user_id,names[m.user_id]||'Član');
       const time=document.createElement('time');time.textContent=chatTime(m.created_at);
       const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=m.message;
       body.append(name,time,bubble);item.append(avatar,body);frag.append(item);
@@ -328,6 +376,8 @@ function syncOnlineModal(){
   if(!onlineModal.classList.contains('open'))return;
   onlineModalCount.textContent=onlineCount.textContent||'Online raja';
   onlineModalList.replaceChildren(...Array.from(onlineList.children).map(node=>node.cloneNode(true)));
+  // Klonirani elementi ne nasljedjuju event listenere: delegiramo klik po ID-u.
+  onlineModalList.querySelectorAll('[data-profile-id]').forEach(b=>b.addEventListener('click',()=>openMemberProfile(b.dataset.profileId)));
 }
 function closeOnlineModal(){
   if(!onlineModal.classList.contains('open'))return;
@@ -358,7 +408,7 @@ function drawOnline(channel){
   for(const [id,name] of [...unique.entries()].sort((a,b)=>a[1].localeCompare(b[1],'bs'))){
     const line=document.createElement('div');line.className='person';
     const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent='🟢';
-    const label=document.createElement('strong');label.textContent=name+(id===onlineUserId?' (ti)':'');
+    const label=memberProfileButton(id,name+(id===onlineUserId?' (ti)':''));
     line.append(avatar,label);onlineList.append(line);
   }
   syncOnlineModal();
@@ -539,11 +589,13 @@ function dmDrawContacts(){
   const people=dmPeople.filter(p=>p.username.toLocaleLowerCase('bs').includes(term));
   if(!people.length){const p=document.createElement('p');p.className='online-empty';p.textContent='Nema drugih članova za prikaz.';dmContacts.append(p);return;}
   for(const person of people){
+    const row=document.createElement('div');row.className='dm-contact-row';
     const b=document.createElement('button');b.type='button';b.className='dm-contact'+(dmSelected?.id===person.id?' selected':'');
     const label=document.createElement('span');label.textContent='👤 '+person.username;b.append(label);
+    const profile=memberProfileButton(person.id,'👤','dm-profile-action');profile.title='Pogledaj profil '+person.username;row.append(b,profile);
     const unread=dmUnreadCounts.get(person.id)||0;
     if(unread){const badge=document.createElement('span');badge.className='dm-badge';badge.textContent=unread>99?'99+':String(unread);b.append(badge);}
-    b.addEventListener('click',()=>dmSelect(person));dmContacts.append(b);
+    b.addEventListener('click',()=>dmSelect(person));dmContacts.append(row);
   }
 }
 async function dmLoadPeople(){
@@ -561,7 +613,7 @@ async function dmLoadPeople(){
 function dmSelect(person){
   if(!dmUser)return;
   dmSelected=person;dmRequest++;
-  dmTo.textContent='Razgovor sa: '+person.username;
+  dmTo.replaceChildren(document.createTextNode('Razgovor sa: '),memberProfileButton(person.id,person.username));
   dmText.disabled=false;dmSend.disabled=false;dmHint.textContent='Samo ti i '+person.username+' možete čitati ovaj razgovor.';
   dmDrawContacts();dmInfo('Učitavanje razgovora...');dmLoadMessages();dmText.focus();
 }
@@ -624,3 +676,5 @@ document.getElementById('dmForm').addEventListener('submit',async e=>{
 </script>
 </body></html>
 ```
+
+````

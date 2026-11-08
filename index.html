@@ -26,7 +26,12 @@
 .online-modal-list{margin:16px 0;max-height:52vh;overflow:auto}
 .online-modal-list .person{padding:10px 4px;border-bottom:1px solid #ffffff1b}
 .online-modal-list .person strong{overflow-wrap:anywhere}
-/* Privatne poruke */
+/* Privatne poruke i oznake neprocitanih */
+.dm-badge{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 6px;border-radius:20px;background:#f02956;color:#fff;font-size:12px;font-weight:800;margin-left:7px;vertical-align:middle;box-shadow:0 0 10px #f0295688}
+.dm-badge[hidden]{display:none!important}
+.dm-contact{display:flex!important;align-items:center;justify-content:space-between;gap:5px}
+.dm-contact .dm-badge{flex:none}
+
 .dm-modal{position:fixed;inset:0;z-index:75;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
 .dm-modal.open{display:flex}
 .dm-dialog{width:min(850px,100%);height:min(690px,90vh);background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 65px #000c}
@@ -68,7 +73,7 @@
 <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-box"><div class="auth-top"><h2 id="authTitle">Prijava u Pravu Raju</h2><button class="auth-close" id="authClose" type="button" aria-label="Zatvori">×</button></div>
  <div class="auth-tabs"><button id="tabLogin" class="selected" type="button">Prijava</button><button id="tabRegister" type="button">Registracija</button></div>
- <form id="authForm"><label class="auth-field auth-hidden" id="usernameField"><span>Korisničko ime (3–25 slova, brojeva ili _)</span><input id="authUsername" autocomplete="username" minlength="3" maxlength="25" pattern="[A-Za-z0-9_]{3,25}"></label>
+ <form id="authForm"><label class="auth-field auth-hidden" id="usernameField"><span>Korisničko ime (3–25 slova, brojeva ili _)</span><input id="authUsername" autocomplete="off" minlength="3" maxlength="25" pattern="[A-Za-z0-9_]{3,25}"></label>
  <label class="auth-field"><span>E-mail adresa</span><input id="authEmail" type="email" autocomplete="email" required maxlength="254"></label>
  <label class="auth-field"><span>Lozinka (najmanje 8 znakova)</span><input id="authPassword" type="password" autocomplete="current-password" required minlength="8"></label>
  <button id="authSubmit" class="pink" style="width:100%" type="submit">Prijavi se</button></form>
@@ -85,7 +90,7 @@ const SITE_URL='https://stenjak-teslic.github.io/prava-raja/';
 const db=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 const overlay=document.getElementById('authOverlay'),authForm=document.getElementById('authForm');
 const authMsg=document.getElementById('authMessage');let authMode='login';
-function setMode(mode){authMode=mode;document.getElementById('authTitle').textContent=mode==='login'?'Prijava u Pravu Raju':'Registracija u Pravu Raju';document.getElementById('usernameField').classList.toggle('auth-hidden',mode!=='register');document.getElementById('authUsername').required=mode==='register';document.getElementById('authPassword').autocomplete=mode==='login'?'current-password':'new-password';document.getElementById('authSubmit').textContent=mode==='login'?'Prijavi se':'Registruj se';document.getElementById('tabLogin').classList.toggle('selected',mode==='login');document.getElementById('tabRegister').classList.toggle('selected',mode==='register');authMsg.textContent='';}
+function setMode(mode){authMode=mode;document.getElementById('authTitle').textContent=mode==='login'?'Prijava u Pravu Raju':'Registracija u Pravu Raju';document.getElementById('usernameField').classList.toggle('auth-hidden',mode!=='register');document.getElementById('authUsername').required=mode==='register';document.getElementById('authUsername').disabled=mode!=='register';document.getElementById('authPassword').autocomplete=mode==='login'?'current-password':'new-password';document.getElementById('authSubmit').textContent=mode==='login'?'Prijavi se':'Registruj se';document.getElementById('tabLogin').classList.toggle('selected',mode==='login');document.getElementById('tabRegister').classList.toggle('selected',mode==='register');authMsg.textContent='';}
 function openAuth(mode){setMode(mode);overlay.classList.add('open');document.getElementById('authEmail').focus();}
 function closeAuth(){overlay.classList.remove('open');authForm.reset();authMsg.textContent='';}
 document.getElementById('loginNav').addEventListener('click',()=>openAuth('login'));
@@ -315,10 +320,61 @@ const dmText=document.getElementById('dmText');
 const dmSend=document.getElementById('dmSend');
 const dmHint=document.getElementById('dmHint');
 let dmUser=null,dmSelected=null,dmPeople=[],dmTimer=null,dmRequest=0,dmLastSent=0,dmPreviousFocus=null,dmLoading=false;
+let dmUnreadTimer=null,dmUnreadBusy=false,dmUnreadCounts=new Map(),dmUnreadTotal=0,dmUnreadGeneration=0;
+const dmOriginalTitle=document.title;
+const dmOpenButtons=[...document.querySelectorAll('[data-dm-open]')];
+for(const b of dmOpenButtons){
+  const badge=document.createElement('span');badge.className='dm-badge';badge.hidden=true;
+  badge.setAttribute('aria-label','Nepročitane poruke');b.append(badge);
+}
+function dmShowBadges(){
+  for(const b of dmOpenButtons){
+    const badge=b.querySelector('.dm-badge');
+    badge.hidden=!dmUnreadTotal;badge.textContent=dmUnreadTotal>99?'99+':String(dmUnreadTotal);
+  }
+  document.title=dmUnreadTotal?'('+dmUnreadTotal+') '+dmOriginalTitle:dmOriginalTitle;
+  if(dmModal.classList.contains('open'))dmDrawContacts();
+}
+async function dmCheckUnread(){
+  if(!db||!dmUser||dmUnreadBusy||document.hidden)return;
+  const userId=dmUser.id,generation=dmUnreadGeneration;
+  dmUnreadBusy=true;
+  try{
+    const {data,error}=await db.from('private_messages')
+      .select('id,sender_id').eq('receiver_id',userId).is('read_at',null)
+      .order('id',{ascending:false}).limit(1000);
+    if(error)throw error;
+    if(generation!==dmUnreadGeneration||dmUser?.id!==userId)return;
+    const counts=new Map();
+    for(const msg of data||[])counts.set(msg.sender_id,(counts.get(msg.sender_id)||0)+1);
+    const total=(data||[]).length;
+    if(total>dmUnreadTotal&&dmUnreadTotal>=0){
+      const newSender=[...counts.keys()].find(id=>(counts.get(id)||0)>(dmUnreadCounts.get(id)||0));
+      if(newSender){
+        const person=dmPeople.find(p=>p.id===newSender);
+        notice('✉ Nova privatna poruka'+(person?' od '+person.username:''));
+      }
+    }
+    dmUnreadCounts=counts;dmUnreadTotal=total;dmShowBadges();
+  }catch(err){console.warn('Provjera privatnih poruka:',err.message);}
+  finally{dmUnreadBusy=false;}
+}
+async function dmMarkRead(otherId){
+  if(!dmUser||!otherId)return;
+  const userId=dmUser.id;
+  const {error}=await db.from('private_messages').update({read_at:new Date().toISOString()})
+    .eq('receiver_id',userId).eq('sender_id',otherId).is('read_at',null);
+  if(error){dmHint.textContent='Poruke su prikazane, ali oznaka pročitano nije sačuvana: '+friendlyError(error);return;}
+  await dmCheckUnread();
+}
+
 function dmInfo(message){dmMessages.replaceChildren();const p=document.createElement('p');p.className='online-empty';p.textContent=message;dmMessages.append(p);}
 function updateDmAuth(user){
   if(dmUser?.id===user?.id)return;
-  dmUser=user||null;dmSelected=null;dmPeople=[];dmRequest++;
+  dmUser=user||null;dmSelected=null;dmPeople=[];dmRequest++;dmUnreadGeneration++;
+  dmUnreadCounts=new Map();dmUnreadTotal=0;dmShowBadges();
+  if(dmUnreadTimer){clearInterval(dmUnreadTimer);dmUnreadTimer=null;}
+  if(dmUser){dmCheckUnread();dmUnreadTimer=setInterval(dmCheckUnread,3000);}
   if(dmTimer){clearInterval(dmTimer);dmTimer=null;}
   dmText.disabled=true;dmSend.disabled=true;dmTo.textContent='Odaberi člana za razgovor';dmContacts.textContent='';dmInfo('Odaberi člana s lijeve strane.');
   if(!dmUser)closeDm();
@@ -339,7 +395,10 @@ function dmDrawContacts(){
   const people=dmPeople.filter(p=>p.username.toLocaleLowerCase('bs').includes(term));
   if(!people.length){const p=document.createElement('p');p.className='online-empty';p.textContent='Nema drugih članova za prikaz.';dmContacts.append(p);return;}
   for(const person of people){
-    const b=document.createElement('button');b.type='button';b.className='dm-contact'+(dmSelected?.id===person.id?' selected':'');b.textContent='👤 '+person.username;
+    const b=document.createElement('button');b.type='button';b.className='dm-contact'+(dmSelected?.id===person.id?' selected':'');
+    const label=document.createElement('span');label.textContent='👤 '+person.username;b.append(label);
+    const unread=dmUnreadCounts.get(person.id)||0;
+    if(unread){const badge=document.createElement('span');badge.className='dm-badge';badge.textContent=unread>99?'99+':String(unread);b.append(badge);}
     b.addEventListener('click',()=>dmSelect(person));dmContacts.append(b);
   }
 }
@@ -368,7 +427,7 @@ async function dmLoadMessages(){
   dmLoading=true;
   try{
     // Oba smjera razgovora; Supabase RLS dodatno stiti sve rezultate.
-    const {data,error}=await db.from('private_messages').select('id,sender_id,receiver_id,message,created_at')
+    const {data,error}=await db.from('private_messages').select('id,sender_id,receiver_id,message,created_at,read_at')
       .or(`and(sender_id.eq.${me},receiver_id.eq.${other}),and(sender_id.eq.${other},receiver_id.eq.${me})`)
       .order('created_at',{ascending:false}).order('id',{ascending:false}).limit(100);
     if(error)throw error;
@@ -383,6 +442,9 @@ async function dmLoadMessages(){
       bubble.append(content,time);dmMessages.append(bubble);
     }
     if(nearBottom)dmMessages.scrollTop=dmMessages.scrollHeight;
+    if(request===dmRequest&&dmSelected?.id===other&&data.some(msg=>msg.sender_id===other&&!msg.read_at)){
+      await dmMarkRead(other);
+    }
   }catch(err){if(request===dmRequest)dmHint.textContent='Učitavanje nije uspjelo: '+friendlyError(err);}
   finally{dmLoading=false;}
 }
@@ -394,9 +456,10 @@ async function openDm(){
   dmHint.textContent='Samo pošiljalac i primalac mogu čitati poruke.';
   await dmLoadPeople();
   if(dmTimer)clearInterval(dmTimer);
-  dmTimer=setInterval(()=>{if(!document.hidden&&dmModal.classList.contains('open'))dmLoadMessages();},5000);
+  dmTimer=setInterval(()=>{if(!document.hidden&&dmModal.classList.contains('open'))dmLoadMessages();},3000);
 }
 document.querySelectorAll('[data-dm-open]').forEach(b=>b.addEventListener('click',openDm));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){dmCheckUnread();if(dmModal.classList.contains('open'))dmLoadMessages();}});
 dmSearch.addEventListener('input',dmDrawContacts);
 document.getElementById('dmForm').addEventListener('submit',async e=>{
   e.preventDefault();if(!dmUser||!dmSelected)return;

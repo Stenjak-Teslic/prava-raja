@@ -26,6 +26,18 @@
 .online-modal-list{margin:16px 0;max-height:52vh;overflow:auto}
 .online-modal-list .person{padding:10px 4px;border-bottom:1px solid #ffffff1b}
 .online-modal-list .person strong{overflow-wrap:anywhere}
+/* Privatne poruke */
+.dm-modal{position:fixed;inset:0;z-index:75;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
+.dm-modal.open{display:flex}
+.dm-dialog{width:min(850px,100%);height:min(690px,90vh);background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 65px #000c}
+.dm-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid #405080}
+.dm-head h2{margin:0;font-size:21px}.dm-body{display:grid;grid-template-columns:230px minmax(0,1fr);flex:1;min-height:0}
+.dm-contacts{padding:12px;border-right:1px solid #405080;overflow-y:auto}.dm-contacts input{width:100%;background:#101d41;color:#fff;border:1px solid #5262a2;border-radius:10px;padding:10px;margin-bottom:10px}
+.dm-contact{display:block;width:100%;text-align:left;border:1px solid transparent;border-radius:10px;background:transparent;color:#fff;padding:11px 9px;margin-bottom:4px;overflow-wrap:anywhere}.dm-contact:hover,.dm-contact.selected{background:#493078;border-color:#8556ba}
+.dm-conversation{display:flex;flex-direction:column;min-height:0}.dm-to{padding:13px 15px;border-bottom:1px solid #405080;font-weight:700;color:#f8c7f2}
+.dm-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px}.dm-bubble{padding:10px 13px;border-radius:14px;max-width:85%;background:#243362;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}.dm-bubble.mine{background:#71318d;align-self:flex-end}.dm-bubble small{display:block;margin-top:5px;font-size:11px;color:#c6d3f0}
+.dm-form{display:flex;gap:8px;padding:12px;border-top:1px solid #405080}.dm-form input{flex:1;min-width:0;background:#101d41;color:#fff;border:1px solid #5262a2;border-radius:11px;padding:11px}.dm-form button:disabled{opacity:.5}.dm-hint{padding:0 13px 9px;color:#bdc9ed;font-size:12px;min-height:20px}
+@media(max-width:600px){.dm-dialog{height:92vh}.dm-body{grid-template-columns:125px minmax(0,1fr)}.dm-contacts{padding:7px}.dm-contact{padding:9px 5px;font-size:12px}.dm-messages{padding:8px}.dm-bubble{max-width:95%;font-size:13px}.dm-form{padding:8px}}
 /* Online raja */
 .online-count{font-weight:700;color:#8ef5b6;margin:10px 0}
 .online-list{max-height:245px;overflow-y:auto}
@@ -36,9 +48,9 @@
 </head>
 <body>
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
-<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-demo>✉ Privatne poruke</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button data-demo>♙ Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
+<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button data-demo>♙ Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
-<section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-demo>✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button data-demo>♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
+<section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button data-demo>♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
 <aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
@@ -46,6 +58,12 @@
  <div class="online-dialog"><div class="online-dialog-head"><h2 id="onlineModalTitle">🟢 Trenutno online raja</h2><button id="onlineClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
  <p class="online-count" id="onlineModalCount"></p><div class="online-modal-list" id="onlineModalList"></div>
  <button class="pink" id="onlineCloseBottom" type="button" style="width:100%">Zatvori</button></div>
+</div>
+<div id="dmModal" class="dm-modal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-hidden="true">
+ <div class="dm-dialog"><div class="dm-head"><h2 id="dmTitle">✉ Privatne poruke</h2><button id="dmClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+ <div class="dm-body"><div class="dm-contacts"><input id="dmSearch" type="search" placeholder="Pronađi člana..." aria-label="Pretraži članove"><div id="dmContacts">Učitavanje članova...</div></div>
+ <div class="dm-conversation"><div class="dm-to" id="dmTo">Odaberi člana za razgovor</div><div class="dm-messages" id="dmMessages" aria-live="polite"><p class="online-empty">Odaberi člana s lijeve strane.</p></div>
+ <form class="dm-form" id="dmForm"><input id="dmText" maxlength="2000" placeholder="Napiši privatnu poruku..." aria-label="Privatna poruka" required disabled><button id="dmSend" class="pink" type="submit" disabled>Pošalji</button></form><div class="dm-hint" id="dmHint" role="status">Samo ti i primalac možete vidjeti ovaj razgovor.</div></div></div></div>
 </div>
 <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-box"><div class="auth-top"><h2 id="authTitle">Prijava u Pravu Raju</h2><button class="auth-close" id="authClose" type="button" aria-label="Zatvori">×</button></div>
@@ -79,7 +97,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeAuth()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeAuth()});
 function friendlyError(error){const m=(error?.message||'').toLowerCase();if(m.includes('invalid login credentials'))return 'Pogrešan e-mail ili lozinka, ili račun još nije potvrđen.';if(m.includes('email not confirmed'))return 'Prvo potvrdi e-mail putem linka koji si dobio/la.';if(m.includes('already registered'))return 'Ova e-mail adresa je već registrovana.';if(m.includes('database error')||m.includes('duplicate key'))return 'Registracija nije uspjela. Moguće je da je korisničko ime zauzeto. Probaj drugo.';if(m.includes('rate limit'))return 'Previše pokušaja. Sačekaj malo i pokušaj ponovo.';return error?.message||'Došlo je do greške. Pokušaj ponovo.';}
 authForm.addEventListener('submit',async e=>{e.preventDefault();if(!db){authMsg.textContent='Biblioteka za prijavu nije učitana. Provjeri internet vezu i osvježi stranicu.';return;}const submit=document.getElementById('authSubmit');const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;const username=document.getElementById('authUsername').value.trim();if(authMode==='register'&&!/^[A-Za-z0-9_]{3,25}$/.test(username)){authMsg.textContent='Korisničko ime mora imati 3–25 znakova: slova A–Z, brojevi ili donja crta (_).';return;}submit.disabled=true;authMsg.textContent='Molimo sačekaj...';try{if(authMode==='register'){const {data,error}=await db.auth.signUp({email,password,options:{data:{username},emailRedirectTo:SITE_URL}});if(error)throw error;authMsg.textContent=data.session?'Registracija je uspjela! Dobro došao/la u Pravu Raju.':'Provjeri svoj e-mail i klikni na link za potvrdu registracije. Nakon potvrde vrati se i prijavi.';if(data.session)setTimeout(closeAuth,1800);}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;notice('Uspješna prijava! Dobro došao/la.');closeAuth();}}catch(err){authMsg.textContent=friendlyError(err);}finally{submit.disabled=false;}});
-async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);}
+async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);}
 document.getElementById('userNav').addEventListener('click',()=>notice('Profil člana ćemo dodati u sljedećem koraku.'));
 document.getElementById('logoutNav').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notice('Odjava nije uspjela: '+friendlyError(error));else notice('Uspješno si se odjavio/la.');});
 if(db){db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>renderUser(session),0)});db.auth.getSession().then(({data})=>renderUser(data.session)).catch(()=>{});}else notice('Sistem prijave trenutno nije dostupan.');
@@ -284,6 +302,116 @@ onlineShow.addEventListener('click',()=>{
   onlineModal.classList.add('open');onlineModal.setAttribute('aria-hidden','false');
   syncOnlineModal();
   document.getElementById('onlineClose').focus();
+});
+
+
+// PRAVA RAJA - Privatne poruke; RLS ogranicava pristup na posiljaoca i primaoca.
+const dmModal=document.getElementById('dmModal');
+const dmContacts=document.getElementById('dmContacts');
+const dmSearch=document.getElementById('dmSearch');
+const dmTo=document.getElementById('dmTo');
+const dmMessages=document.getElementById('dmMessages');
+const dmText=document.getElementById('dmText');
+const dmSend=document.getElementById('dmSend');
+const dmHint=document.getElementById('dmHint');
+let dmUser=null,dmSelected=null,dmPeople=[],dmTimer=null,dmRequest=0,dmLastSent=0,dmPreviousFocus=null,dmLoading=false;
+function dmInfo(message){dmMessages.replaceChildren();const p=document.createElement('p');p.className='online-empty';p.textContent=message;dmMessages.append(p);}
+function updateDmAuth(user){
+  if(dmUser?.id===user?.id)return;
+  dmUser=user||null;dmSelected=null;dmPeople=[];dmRequest++;
+  if(dmTimer){clearInterval(dmTimer);dmTimer=null;}
+  dmText.disabled=true;dmSend.disabled=true;dmTo.textContent='Odaberi člana za razgovor';dmContacts.textContent='';dmInfo('Odaberi člana s lijeve strane.');
+  if(!dmUser)closeDm();
+}
+function closeDm(){
+  if(!dmModal.classList.contains('open'))return;
+  dmModal.classList.remove('open');dmModal.setAttribute('aria-hidden','true');
+  if(dmTimer){clearInterval(dmTimer);dmTimer=null;}
+  dmRequest++;
+  if(dmPreviousFocus?.isConnected)dmPreviousFocus.focus();
+}
+document.getElementById('dmClose').addEventListener('click',closeDm);
+dmModal.addEventListener('click',e=>{if(e.target===dmModal)closeDm();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDm();});
+function dmDrawContacts(){
+  dmContacts.replaceChildren();
+  const term=dmSearch.value.trim().toLocaleLowerCase('bs');
+  const people=dmPeople.filter(p=>p.username.toLocaleLowerCase('bs').includes(term));
+  if(!people.length){const p=document.createElement('p');p.className='online-empty';p.textContent='Nema drugih članova za prikaz.';dmContacts.append(p);return;}
+  for(const person of people){
+    const b=document.createElement('button');b.type='button';b.className='dm-contact'+(dmSelected?.id===person.id?' selected':'');b.textContent='👤 '+person.username;
+    b.addEventListener('click',()=>dmSelect(person));dmContacts.append(b);
+  }
+}
+async function dmLoadPeople(){
+  if(!dmUser)return;
+  const id=dmUser.id;
+  dmContacts.textContent='Učitavanje članova...';
+  try{
+    const {data,error}=await db.from('profiles').select('id,username').order('username',{ascending:true}).limit(500);
+    if(error)throw error;
+    if(!dmUser||dmUser.id!==id||!dmModal.classList.contains('open'))return;
+    dmPeople=(data||[]).filter(p=>p.id!==id&&typeof p.username==='string');
+    dmDrawContacts();
+  }catch(err){dmContacts.textContent='Ne mogu učitati članove: '+friendlyError(err);}
+}
+function dmSelect(person){
+  if(!dmUser)return;
+  dmSelected=person;dmRequest++;
+  dmTo.textContent='Razgovor sa: '+person.username;
+  dmText.disabled=false;dmSend.disabled=false;dmHint.textContent='Samo ti i '+person.username+' možete čitati ovaj razgovor.';
+  dmDrawContacts();dmInfo('Učitavanje razgovora...');dmLoadMessages();dmText.focus();
+}
+async function dmLoadMessages(){
+  if(!db||!dmUser||!dmSelected||!dmModal.classList.contains('open')||dmLoading)return;
+  const request=dmRequest,me=dmUser.id,other=dmSelected.id;
+  dmLoading=true;
+  try{
+    // Oba smjera razgovora; Supabase RLS dodatno stiti sve rezultate.
+    const {data,error}=await db.from('private_messages').select('id,sender_id,receiver_id,message,created_at')
+      .or(`and(sender_id.eq.${me},receiver_id.eq.${other}),and(sender_id.eq.${other},receiver_id.eq.${me})`)
+      .order('created_at',{ascending:false}).order('id',{ascending:false}).limit(100);
+    if(error)throw error;
+    if(request!==dmRequest||dmUser?.id!==me||dmSelected?.id!==other||!dmModal.classList.contains('open'))return;
+    const nearBottom=dmMessages.scrollHeight-dmMessages.scrollTop-dmMessages.clientHeight<100;
+    dmMessages.replaceChildren();
+    if(!data?.length){dmInfo('Još nema poruka. Pošalji prvi pozdrav! 💜');return;}
+    for(const msg of [...data].reverse()){
+      const bubble=document.createElement('div');bubble.className='dm-bubble'+(msg.sender_id===me?' mine':'');
+      const content=document.createElement('div');content.textContent=msg.message;
+      const time=document.createElement('small');time.textContent=chatTime(msg.created_at);
+      bubble.append(content,time);dmMessages.append(bubble);
+    }
+    if(nearBottom)dmMessages.scrollTop=dmMessages.scrollHeight;
+  }catch(err){if(request===dmRequest)dmHint.textContent='Učitavanje nije uspjelo: '+friendlyError(err);}
+  finally{dmLoading=false;}
+}
+async function openDm(){
+  if(!dmUser){openAuth('login');return;}
+  dmPreviousFocus=document.activeElement;
+  dmModal.classList.add('open');dmModal.setAttribute('aria-hidden','false');
+  document.getElementById('dmClose').focus();
+  dmHint.textContent='Samo pošiljalac i primalac mogu čitati poruke.';
+  await dmLoadPeople();
+  if(dmTimer)clearInterval(dmTimer);
+  dmTimer=setInterval(()=>{if(!document.hidden&&dmModal.classList.contains('open'))dmLoadMessages();},5000);
+}
+document.querySelectorAll('[data-dm-open]').forEach(b=>b.addEventListener('click',openDm));
+dmSearch.addEventListener('input',dmDrawContacts);
+document.getElementById('dmForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!dmUser||!dmSelected)return;
+  const message=dmText.value.trim();
+  if(!message||message.length>2000){dmHint.textContent='Poruka mora imati 1 do 2000 znakova.';return;}
+  if(Date.now()-dmLastSent<2000){dmHint.textContent='Sačekaj trenutak prije sljedeće poruke.';return;}
+  const me=dmUser.id,other=dmSelected.id;
+  dmSend.disabled=true;
+  try{
+    const {error}=await db.from('private_messages').insert({sender_id:me,receiver_id:other,message});
+    if(error)throw error;
+    dmLastSent=Date.now();dmText.value='';dmHint.textContent='Poruka je poslana.';
+    await dmLoadMessages();
+  }catch(err){dmHint.textContent='Slanje nije uspjelo: '+friendlyError(err);}
+  finally{dmSend.disabled=!dmUser||!dmSelected;}
 });
 
 </script>

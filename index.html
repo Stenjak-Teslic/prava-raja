@@ -90,11 +90,11 @@
 </head>
 <body>
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
-<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button id="wishesNav" type="button">♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
+<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button id="wishesNav" type="button">♫ Želje i pozdravi</button><button id="radioAdminNav" class="auth-hidden" type="button">🎙️ Panel voditelja</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">🎶 Radio Studio M Teslić uživo. Pritisni ▶ za slušanje. Ako stream nije dostupan, pokušaj ponovo kasnije.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
-<aside class="right"><div class="panel neon pad" id="wishesPanel"><h3>🎵 Muzičke želje i pozdravi</h3><p class="info">Pozdravi svoju raju ili napiši koju pjesmu želiš čuti! Objave su vidljive svima, ali se ne šalju automatski radiju.</p><form id="wishForm" class="wish-form"><label for="wish" class="info">Tvoja poruka (do 500 znakova)</label><textarea id="wish" maxlength="500" required placeholder="Npr. Pozdrav za svu raju iz Teslića! Želio bih čuti..."></textarea><button id="wishSend" class="pink" style="width:100%" type="submit">➤ Pošalji želju</button></form><p id="wishFeedback" class="wish-feedback" role="status" aria-live="polite">Prijavi se za slanje želje.</p><h3 style="font-size:16px;margin-top:17px">💜 Pozdravi naše raje</h3><div id="wishFeed" class="wish-feed" aria-live="polite"><p class="info">Učitavanje pozdrava...</p></div></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
+<aside class="right"><div class="panel neon pad" id="wishesPanel"><h3>🎵 Muzičke želje i pozdravi</h3><p class="info">Pošalji muzičku želju ili pozdrav voditelju Radija Studio M. Poruku vide samo ovlašteni voditelji.</p><form id="wishForm" class="wish-form"><label for="wish" class="info">Tvoja poruka (do 500 znakova)</label><textarea id="wish" maxlength="500" required placeholder="Npr. Pozdrav za svu raju iz Teslića! Želio bih čuti..."></textarea><button id="wishSend" class="pink" style="width:100%" type="submit">➤ Pošalji želju</button></form><p id="wishFeedback" class="wish-feedback" role="status" aria-live="polite">Prijavi se za slanje želje.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
 <div id="onlineModal" class="online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineModalTitle" aria-hidden="true">
  <div class="online-dialog"><div class="online-dialog-head"><h2 id="onlineModalTitle">🟢 Trenutno online raja</h2><button id="onlineClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
@@ -327,7 +327,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeAuth()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeAuth()});
 function friendlyError(error){const m=(error?.message||'').toLowerCase();if(m.includes('invalid login credentials'))return 'Pogrešan e-mail ili lozinka, ili račun još nije potvrđen.';if(m.includes('email not confirmed'))return 'Prvo potvrdi e-mail putem linka koji si dobio/la.';if(m.includes('already registered'))return 'Ova e-mail adresa je već registrovana.';if(m.includes('database error')||m.includes('duplicate key'))return 'Registracija nije uspjela. Moguće je da je korisničko ime zauzeto. Probaj drugo.';if(m.includes('rate limit'))return 'Previše pokušaja. Sačekaj malo i pokušaj ponovo.';return error?.message||'Došlo je do greške. Pokušaj ponovo.';}
 authForm.addEventListener('submit',async e=>{e.preventDefault();if(!db){authMsg.textContent='Biblioteka za prijavu nije učitana. Provjeri internet vezu i osvježi stranicu.';return;}const submit=document.getElementById('authSubmit');const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;const username=document.getElementById('authUsername').value.trim();if(authMode==='register'&&!/^[A-Za-z0-9_]{3,25}$/.test(username)){authMsg.textContent='Korisničko ime mora imati 3–25 znakova: slova A–Z, brojevi ili donja crta (_).';return;}submit.disabled=true;authMsg.textContent='Molimo sačekaj...';try{if(authMode==='register'){const {data,error}=await db.auth.signUp({email,password,options:{data:{username},emailRedirectTo:SITE_URL}});if(error)throw error;authMsg.textContent=data.session?'Registracija je uspjela! Dobro došao/la u Pravu Raju.':'Provjeri svoj e-mail i klikni na link za potvrdu registracije. Nakon potvrde vrati se i prijavi.';if(data.session)setTimeout(closeAuth,1800);}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;notice('Uspješna prijava! Dobro došao/la.');closeAuth();}}catch(err){authMsg.textContent=friendlyError(err);}finally{submit.disabled=false;}});
-async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);updateWishAuth(user);if(!user){closeProfile();closeMembers();}}
+async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);updateWishAuth(user);await updateRadioAdminAuth(user);if(!user){closeProfile();closeMembers();}}
 document.getElementById('userNav').addEventListener('click',openMyProfile);
 document.getElementById('myProfileSide').addEventListener('click',openMyProfile);
 document.getElementById('logoutNav').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notice('Odjava nije uspjela: '+friendlyError(error));else notice('Uspješno si se odjavio/la.');});
@@ -390,69 +390,36 @@ membersModal.addEventListener('click',e=>{if(e.target===membersModal)closeMember
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMembers();});
 membersSearch.addEventListener('input',drawMembers);
 
-// PRAVA RAJA - muzicke zelje i pozdravi (javno citanje, prijavljeni salju preko RPC)
+// Muzicke zelje: slanje privatno radijskom osoblju putem postojeceg RPC-a.
 const wishForm=document.getElementById('wishForm');
 const wishText=document.getElementById('wish');
 const wishSend=document.getElementById('wishSend');
 const wishFeedback=document.getElementById('wishFeedback');
-const wishFeed=document.getElementById('wishFeed');
-let wishUser=null,wishBusy=false,wishLoadBusy=false,wishTimer=null,wishGeneration=0;
-function wishMessage(text){wishFeed.replaceChildren();const p=document.createElement('p');p.className='info';p.textContent=text;wishFeed.append(p);}
+let wishUser=null,wishBusy=false;
 function updateWishAuth(user){
-  wishUser=user||null;wishGeneration++;
+  wishUser=user||null;
   wishText.disabled=!wishUser;wishSend.disabled=!wishUser||wishBusy;
   wishText.placeholder=wishUser?'Napiši muzičku želju ili pozdrav...':'Prijavi se da pošalješ želju...';
-  wishFeedback.textContent=wishUser?'Jedna želja svakih 5 minuta. Najviše 500 znakova.':'Prijavi se da pošalješ želju. Pozdrave mogu čitati svi.';
-  loadWishes();
-}
-async function loadWishes(){
-  if(!db||wishLoadBusy)return;
-  const generation=wishGeneration;wishLoadBusy=true;
-  try{
-    const {data,error}=await db.from('music_wishes').select('id,user_id,message,created_at').order('created_at',{ascending:false}).order('id',{ascending:false}).limit(30);
-    if(error)throw error;
-    const rows=data||[];
-    const ids=[...new Set(rows.map(r=>r.user_id).filter(Boolean))];
-    let names={};
-    if(ids.length){
-      const {data:profiles,error:profileError}=await db.from('profiles').select('id,username').in('id',ids);
-      if(!profileError)names=Object.fromEntries((profiles||[]).map(p=>[p.id,p.username]));
-    }
-    if(generation!==wishGeneration)return;
-    wishFeed.replaceChildren();
-    if(!rows.length){wishMessage('Još nema pozdrava. Budi prvi! 💜');return;}
-    const fragment=document.createDocumentFragment();
-    for(const item of rows){
-      const entry=document.createElement('article');entry.className='wish-entry';
-      const name=document.createElement('strong');name.textContent=names[item.user_id]||'Član Prave Raje';
-      const time=document.createElement('time');time.textContent=chatTime(item.created_at);
-      const message=document.createElement('p');message.textContent=item.message;
-      entry.append(name,time,message);fragment.append(entry);
-    }
-    wishFeed.append(fragment);
-  }catch(err){if(generation===wishGeneration)wishMessage('Pozdravi trenutno nisu dostupni: '+friendlyError(err));}
-  finally{wishLoadBusy=false;}
+  wishFeedback.textContent=wishUser?'Jedna želja svakih 5 minuta. Poruke čitaju samo voditelji.':'Prijavi se da pošalješ želju voditelju.';
 }
 wishForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  if(!wishUser){openAuth('login');return;}
+  e.preventDefault();if(!wishUser){openAuth('login');return;}
   if(wishBusy)return;
   const message=wishText.value.trim();
   if(!message||message.length>500){wishFeedback.textContent='Poruka mora imati od 1 do 500 znakova.';return;}
-  wishBusy=true;wishSend.disabled=true;wishFeedback.textContent='Šaljem pozdrav...';
+  wishBusy=true;wishSend.disabled=true;wishFeedback.textContent='Šaljem poruku voditelju...';
   try{
     const {error}=await db.rpc('submit_music_wish',{wish_message:message});
     if(error)throw error;
-    wishText.value='';wishFeedback.textContent='💜 Tvoj pozdrav je objavljen!';
-    notice('Muzička želja je objavljena! 🎵');
-    await loadWishes();
+    wishText.value='';wishFeedback.textContent='💜 Poruka je poslana voditelju!';
+    notice('Muzička želja je poslana voditelju! 🎵');
+    if(radioAdminModal.classList.contains('open'))loadRadioWishes();
   }catch(err){
     const msg=String(err?.message||'');
     wishFeedback.textContent=msg.includes('Sacekaj 5 minuta')?'Sačekaj 5 minuta prije novog pozdrava.':'Slanje nije uspjelo: '+friendlyError(err);
   }finally{wishBusy=false;wishSend.disabled=!wishUser;}
 });
 document.getElementById('wishesNav').addEventListener('click',()=>document.getElementById('wishesPanel').scrollIntoView({behavior:'smooth',block:'start'}));
-if(db){loadWishes();wishTimer=setInterval(()=>{if(!document.hidden)loadWishes();},20000);}else wishMessage('Pozdravi trenutno nisu dostupni.');
 
 // PRAVA RAJA - javni chat (Supabase RLS kontrolise pristup)
 const chatMessages=document.getElementById('chatMessages');
@@ -868,5 +835,126 @@ document.getElementById('dmForm').addEventListener('submit',async e=>{
   finally{dmSend.disabled=!dmUser||!dmSelected;}
 });
 
+</script>
+
+<style>
+.radio-admin-modal{position:fixed;inset:0;z-index:95;background:#030718eb;display:none;align-items:center;justify-content:center;padding:14px}
+.radio-admin-modal.open{display:flex}.radio-admin-dialog{width:min(980px,100%);max-height:92vh;overflow:auto;background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;padding:22px;box-shadow:0 18px 65px #000c}
+.radio-admin-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.radio-admin-head h2{margin:0}.radio-admin-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.radio-admin-toolbar button,.radio-admin-action{background:#292458;border:1px solid #8057bb;border-radius:10px;color:white;padding:9px 12px}.radio-admin-toolbar button.selected{background:#9c1dc1}.radio-admin-list{display:grid;gap:12px}.radio-admin-card{background:#111d42;border:1px solid #455a9a;border-radius:13px;padding:15px}.radio-admin-card p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}.radio-admin-card small{color:#b8c5e3}.radio-admin-actions{display:flex;gap:8px;flex-wrap:wrap}.radio-admin-staff{border-top:1px solid #46558d;margin-top:22px;padding-top:18px}.radio-admin-staff input{width:100%;max-width:450px;background:#0a1230;color:#fff;border:1px solid #6171ae;border-radius:10px;padding:11px;margin:8px 0}.radio-admin-staff form{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.radio-admin-staff .radio-admin-card{margin-top:10px}
+</style>
+<div id="radioAdminModal" class="radio-admin-modal" role="dialog" aria-modal="true" aria-labelledby="radioAdminTitle" aria-hidden="true">
+ <div class="radio-admin-dialog"><div class="radio-admin-head"><h2 id="radioAdminTitle">🎙️ Panel voditelja</h2><button id="radioAdminClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+ <p class="info">Privatne muzičke želje i pozdravi. Pristup kontrolišu Supabase sigurnosna pravila.</p>
+ <div class="radio-admin-toolbar"><button type="button" data-wish-filter="new" class="selected">📩 Nove</button><button type="button" data-wish-filter="read">✅ Pročitane u eteru</button><button type="button" data-wish-filter="rejected">❌ Odbijene</button><button type="button" id="radioAdminRefresh">↻ Osvježi</button></div>
+ <p id="radioAdminInfo" class="info" role="status">Učitavanje...</p><div id="radioAdminList" class="radio-admin-list"></div>
+ <section id="radioAdminStaff" class="radio-admin-staff" hidden><h3>👑 Upravljanje voditeljima</h3><p class="info">Dodaj registrovanog člana po korisničkom imenu. Samo glavni administrator može mijenjati voditelje.</p><form id="radioAdminAddForm"><input id="radioAdminUsername" maxlength="25" placeholder="Korisničko ime člana" aria-label="Korisničko ime člana" required><button class="pink" type="submit">Dodaj voditelja</button></form><p id="radioAdminStaffInfo" class="info" role="status"></p><div id="radioAdminStaffList"></div></section>
+ </div>
+</div>
+<script>
+const radioAdminNav=document.getElementById('radioAdminNav');
+const radioAdminModal=document.getElementById('radioAdminModal');
+const radioAdminInfo=document.getElementById('radioAdminInfo');
+const radioAdminList=document.getElementById('radioAdminList');
+let radioAdminRole=null,radioAdminUserId=null,radioAdminFilter='new',radioAdminTimer=null,radioAdminRequest=0,radioAdminPreviousFocus=null;
+async function updateRadioAdminAuth(user){
+ const id=user?.id||null;radioAdminUserId=id;radioAdminRole=null;
+ radioAdminNav.classList.add('auth-hidden');closeRadioAdmin();
+ if(!id||!db)return;
+ try{
+  const {data,error}=await db.from('radio_admins').select('role').eq('user_id',id).maybeSingle();
+  if(error||radioAdminUserId!==id)return;
+  if(data?.role==='owner'||data?.role==='host'){
+   radioAdminRole=data.role;radioAdminNav.classList.remove('auth-hidden');
+  }
+ }catch(err){console.warn('Provjera uloge:',err);}
+}
+function closeRadioAdmin(){
+ if(radioAdminTimer){clearInterval(radioAdminTimer);radioAdminTimer=null;}
+ radioAdminRequest++;radioAdminModal.classList.remove('open');radioAdminModal.setAttribute('aria-hidden','true');
+ if(radioAdminPreviousFocus?.isConnected)radioAdminPreviousFocus.focus();
+}
+async function openRadioAdmin(){
+ if(!radioAdminRole){notice('Panel je dostupan samo ovlaštenim voditeljima.');return;}
+ radioAdminPreviousFocus=document.activeElement;radioAdminModal.classList.add('open');radioAdminModal.setAttribute('aria-hidden','false');
+ document.getElementById('radioAdminStaff').hidden=radioAdminRole!=='owner';
+ document.getElementById('radioAdminClose').focus();await loadRadioWishes();
+ if(radioAdminRole==='owner')loadRadioStaff();
+ radioAdminTimer=setInterval(()=>{if(!document.hidden&&radioAdminModal.classList.contains('open'))loadRadioWishes();},12000);
+}
+radioAdminNav.addEventListener('click',openRadioAdmin);
+document.getElementById('radioAdminClose').addEventListener('click',closeRadioAdmin);
+radioAdminModal.addEventListener('click',e=>{if(e.target===radioAdminModal)closeRadioAdmin();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&radioAdminModal.classList.contains('open'))closeRadioAdmin();});
+document.getElementById('radioAdminRefresh').addEventListener('click',()=>{loadRadioWishes();if(radioAdminRole==='owner')loadRadioStaff();});
+document.querySelectorAll('[data-wish-filter]').forEach(b=>b.addEventListener('click',()=>{
+ radioAdminFilter=b.dataset.wishFilter;
+ document.querySelectorAll('[data-wish-filter]').forEach(x=>x.classList.toggle('selected',x===b));loadRadioWishes();
+}));
+async function loadRadioWishes(){
+ if(!db||!radioAdminRole||!radioAdminModal.classList.contains('open'))return;
+ const req=++radioAdminRequest;radioAdminInfo.textContent='Učitavanje poruka...';
+ try{
+  const {data,error}=await db.from('music_wishes').select('id,user_id,message,created_at,status').eq('status',radioAdminFilter).order('created_at',{ascending:false}).limit(100);
+  if(error)throw error;if(req!==radioAdminRequest)return;
+  const rows=data||[],ids=[...new Set(rows.map(r=>r.user_id).filter(Boolean))];let names={};
+  if(ids.length){const {data:profiles}=await db.from('profiles').select('id,username').in('id',ids);names=Object.fromEntries((profiles||[]).map(p=>[p.id,p.username]));}
+  if(req!==radioAdminRequest)return;
+  radioAdminList.replaceChildren();radioAdminInfo.textContent=rows.length+' poruka (najviše 100 po prikazu).';
+  if(!rows.length){radioAdminInfo.textContent='Nema poruka u ovoj kategoriji.';return;}
+  for(const item of rows){
+   const card=document.createElement('article');card.className='radio-admin-card';
+   const title=document.createElement('strong');title.textContent=names[item.user_id]||'Član Prave Raje';
+   const date=document.createElement('small');date.textContent=' · '+chatTime(item.created_at);
+   const msg=document.createElement('p');msg.textContent=item.message;
+   const actions=document.createElement('div');actions.className='radio-admin-actions';
+   for(const [status,label] of [['new','Vrati u nove'],['read','✅ Pročitano u eteru'],['rejected','❌ Odbijeno']]){
+    if(item.status===status)continue;
+    const button=document.createElement('button');button.type='button';button.className='radio-admin-action';button.textContent=label;
+    button.addEventListener('click',async()=>{
+     button.disabled=true;
+     const {error}=await db.rpc('update_music_wish_status',{wish_id:item.id,new_status:status});
+     if(error){notice('Promjena nije uspjela: '+friendlyError(error));button.disabled=false;return;}
+     await loadRadioWishes();
+    });actions.append(button);
+   }
+   card.append(title,date,msg,actions);radioAdminList.append(card);
+  }
+ }catch(err){if(req===radioAdminRequest)radioAdminInfo.textContent='Ne mogu učitati poruke: '+friendlyError(err);}
+}
+async function loadRadioStaff(){
+ if(radioAdminRole!=='owner')return;
+ const info=document.getElementById('radioAdminStaffInfo'),list=document.getElementById('radioAdminStaffList');
+ info.textContent='Učitavanje voditelja...';
+ const {data,error}=await db.from('radio_admins').select('user_id,role,created_at').order('created_at',{ascending:true});
+ if(error){info.textContent='Ne mogu učitati voditelje: '+friendlyError(error);return;}
+ const ids=(data||[]).map(x=>x.user_id),{data:profiles}=ids.length?await db.from('profiles').select('id,username').in('id',ids):{data:[]};
+ const names=Object.fromEntries((profiles||[]).map(p=>[p.id,p.username]));list.replaceChildren();
+ info.textContent='Ovlašteni računi: '+(data||[]).length;
+ for(const item of data||[]){
+  const card=document.createElement('div');card.className='radio-admin-card';
+  const label=document.createElement('strong');label.textContent=(names[item.user_id]||'Član')+' — '+(item.role==='owner'?'Glavni administrator':'Voditelj');card.append(label);
+  if(item.role==='host'){
+   const button=document.createElement('button');button.type='button';button.className='radio-admin-action';button.style.marginLeft='12px';button.textContent='Ukloni voditelja';
+   button.addEventListener('click',async()=>{
+    if(!confirm('Ukloniti voditelja '+(names[item.user_id]||'')+'?'))return;
+    button.disabled=true;const {error}=await db.rpc('manage_radio_host',{target_user_id:item.user_id,make_host:false});
+    if(error){info.textContent='Uklanjanje nije uspjelo: '+friendlyError(error);button.disabled=false;return;}loadRadioStaff();
+   });card.append(button);
+  }list.append(card);
+ }
+}
+document.getElementById('radioAdminAddForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(radioAdminRole!=='owner')return;
+ const input=document.getElementById('radioAdminUsername'),info=document.getElementById('radioAdminStaffInfo');
+ const username=input.value.trim();if(!/^[A-Za-z0-9_]{3,25}$/.test(username)){info.textContent='Unesi ispravno korisničko ime.';return;}
+ info.textContent='Dodajem voditelja...';
+ const {data:matches,error:lookupError}=await db.from('profiles').select('id,username').ilike('username',username).limit(10);
+  if(lookupError){info.textContent='Pretraga člana nije uspjela: '+friendlyError(lookupError);return;}
+  const match=(matches||[]).find(p=>p.username.toLowerCase()===username.toLowerCase());
+  if(!match){info.textContent='Nema registrovanog člana s tim korisničkim imenom.';return;}
+  const {error}=await db.rpc('manage_radio_host',{target_user_id:match.id,make_host:true});
+ if(error){info.textContent='Dodavanje nije uspjelo: '+friendlyError(error);return;}
+ input.value='';await loadRadioStaff();notice('Voditelj je dodan. 🎙️');
+});
 </script>
 </body></html>

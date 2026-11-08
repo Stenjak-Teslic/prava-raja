@@ -1,5 +1,3 @@
-````
-```
 <!doctype html>
 <html lang="bs">
 <head>
@@ -105,6 +103,10 @@
    <label class="profile-field">O meni<textarea id="profileBio" maxlength="500" placeholder="Napiši nekoliko rečenica o sebi..."></textarea></label>
    <div class="profile-actions"><button class="pink" id="profileSave" type="submit">💾 Sačuvaj profil</button></div>
   </form>
+   <div class="profile-readonly" id="profileReadonly" aria-label="Javni podaci člana">
+    <div class="profile-label">Grad ili država</div><p class="profile-value" id="profileViewLocation">Nije navedeno</p>
+    <div class="profile-label">O meni</div><p class="profile-value" id="profileViewBio">Član još nije napisao opis.</p>
+   </div>
   <p id="profileMessage" class="profile-message" role="status" aria-live="polite"></p>
  </div>
 </div>
@@ -675,6 +677,3 @@ document.getElementById('dmForm').addEventListener('submit',async e=>{
 
 </script>
 </body></html>
-```
-
-````

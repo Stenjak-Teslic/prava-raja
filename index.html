@@ -71,6 +71,8 @@
 .profile-field{display:block;margin:14px 0;color:#d9e1ff}.profile-field input,.profile-field textarea{display:block;width:100%;margin-top:6px;padding:11px;border-radius:11px;border:1px solid #6171ae;background:#0a1230;color:white}.profile-field textarea{min-height:85px}
 .profile-actions{display:flex;gap:10px;flex-wrap:wrap}.profile-actions button{flex:1}.profile-message{min-height:20px;color:#ffd4f4;line-height:1.5}.profile-file-note{font-size:12px;color:#b8c5e3}
 
+/* Muzicke zelje i pozdravi */
+.wish-form textarea{margin:12px 0 8px;min-height:90px}.wish-feed{margin-top:16px;max-height:350px;overflow-y:auto;display:grid;gap:10px}.wish-entry{border:1px solid #46558d;background:#142046;border-radius:12px;padding:12px}.wish-entry strong{color:#ffdb72}.wish-entry time{display:block;color:#b8c5e3;font-size:12px;margin-top:3px}.wish-entry p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;margin:9px 0 0}.wish-feedback{min-height:19px;font-size:12px;color:#d7dfff;margin:9px 0}.wish-entry .wish-profile{color:#ffdb72}
 /* Galerija registrovanih clanova */
 .members-modal{position:fixed;inset:0;z-index:78;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
 .members-modal.open{display:flex}
@@ -88,11 +90,11 @@
 </head>
 <body>
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
-<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
+<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button id="wishesNav" type="button">♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">🎶 Radio Studio M Teslić uživo. Pritisni ▶ za slušanje. Ako stream nije dostupan, pokušaj ponovo kasnije.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
-<aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
+<aside class="right"><div class="panel neon pad" id="wishesPanel"><h3>🎵 Muzičke želje i pozdravi</h3><p class="info">Pozdravi svoju raju ili napiši koju pjesmu želiš čuti! Objave su vidljive svima, ali se ne šalju automatski radiju.</p><form id="wishForm" class="wish-form"><label for="wish" class="info">Tvoja poruka (do 500 znakova)</label><textarea id="wish" maxlength="500" required placeholder="Npr. Pozdrav za svu raju iz Teslića! Želio bih čuti..."></textarea><button id="wishSend" class="pink" style="width:100%" type="submit">➤ Pošalji želju</button></form><p id="wishFeedback" class="wish-feedback" role="status" aria-live="polite">Prijavi se za slanje želje.</p><h3 style="font-size:16px;margin-top:17px">💜 Pozdravi naše raje</h3><div id="wishFeed" class="wish-feed" aria-live="polite"><p class="info">Učitavanje pozdrava...</p></div></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
 <div id="onlineModal" class="online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineModalTitle" aria-hidden="true">
  <div class="online-dialog"><div class="online-dialog-head"><h2 id="onlineModalTitle">🟢 Trenutno online raja</h2><button id="onlineClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
@@ -325,7 +327,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeAuth()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeAuth()});
 function friendlyError(error){const m=(error?.message||'').toLowerCase();if(m.includes('invalid login credentials'))return 'Pogrešan e-mail ili lozinka, ili račun još nije potvrđen.';if(m.includes('email not confirmed'))return 'Prvo potvrdi e-mail putem linka koji si dobio/la.';if(m.includes('already registered'))return 'Ova e-mail adresa je već registrovana.';if(m.includes('database error')||m.includes('duplicate key'))return 'Registracija nije uspjela. Moguće je da je korisničko ime zauzeto. Probaj drugo.';if(m.includes('rate limit'))return 'Previše pokušaja. Sačekaj malo i pokušaj ponovo.';return error?.message||'Došlo je do greške. Pokušaj ponovo.';}
 authForm.addEventListener('submit',async e=>{e.preventDefault();if(!db){authMsg.textContent='Biblioteka za prijavu nije učitana. Provjeri internet vezu i osvježi stranicu.';return;}const submit=document.getElementById('authSubmit');const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;const username=document.getElementById('authUsername').value.trim();if(authMode==='register'&&!/^[A-Za-z0-9_]{3,25}$/.test(username)){authMsg.textContent='Korisničko ime mora imati 3–25 znakova: slova A–Z, brojevi ili donja crta (_).';return;}submit.disabled=true;authMsg.textContent='Molimo sačekaj...';try{if(authMode==='register'){const {data,error}=await db.auth.signUp({email,password,options:{data:{username},emailRedirectTo:SITE_URL}});if(error)throw error;authMsg.textContent=data.session?'Registracija je uspjela! Dobro došao/la u Pravu Raju.':'Provjeri svoj e-mail i klikni na link za potvrdu registracije. Nakon potvrde vrati se i prijavi.';if(data.session)setTimeout(closeAuth,1800);}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;notice('Uspješna prijava! Dobro došao/la.');closeAuth();}}catch(err){authMsg.textContent=friendlyError(err);}finally{submit.disabled=false;}});
-async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);if(!user){closeProfile();closeMembers();}}
+async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);updateWishAuth(user);if(!user){closeProfile();closeMembers();}}
 document.getElementById('userNav').addEventListener('click',openMyProfile);
 document.getElementById('myProfileSide').addEventListener('click',openMyProfile);
 document.getElementById('logoutNav').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notice('Odjava nije uspjela: '+friendlyError(error));else notice('Uspješno si se odjavio/la.');});
@@ -387,6 +389,70 @@ document.getElementById('membersClose').addEventListener('click',closeMembers);
 membersModal.addEventListener('click',e=>{if(e.target===membersModal)closeMembers();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMembers();});
 membersSearch.addEventListener('input',drawMembers);
+
+// PRAVA RAJA - muzicke zelje i pozdravi (javno citanje, prijavljeni salju preko RPC)
+const wishForm=document.getElementById('wishForm');
+const wishText=document.getElementById('wish');
+const wishSend=document.getElementById('wishSend');
+const wishFeedback=document.getElementById('wishFeedback');
+const wishFeed=document.getElementById('wishFeed');
+let wishUser=null,wishBusy=false,wishLoadBusy=false,wishTimer=null,wishGeneration=0;
+function wishMessage(text){wishFeed.replaceChildren();const p=document.createElement('p');p.className='info';p.textContent=text;wishFeed.append(p);}
+function updateWishAuth(user){
+  wishUser=user||null;wishGeneration++;
+  wishText.disabled=!wishUser;wishSend.disabled=!wishUser||wishBusy;
+  wishText.placeholder=wishUser?'Napiši muzičku želju ili pozdrav...':'Prijavi se da pošalješ želju...';
+  wishFeedback.textContent=wishUser?'Jedna želja svakih 5 minuta. Najviše 500 znakova.':'Prijavi se da pošalješ želju. Pozdrave mogu čitati svi.';
+  loadWishes();
+}
+async function loadWishes(){
+  if(!db||wishLoadBusy)return;
+  const generation=wishGeneration;wishLoadBusy=true;
+  try{
+    const {data,error}=await db.from('music_wishes').select('id,user_id,message,created_at').order('created_at',{ascending:false}).order('id',{ascending:false}).limit(30);
+    if(error)throw error;
+    const rows=data||[];
+    const ids=[...new Set(rows.map(r=>r.user_id).filter(Boolean))];
+    let names={};
+    if(ids.length){
+      const {data:profiles,error:profileError}=await db.from('profiles').select('id,username').in('id',ids);
+      if(!profileError)names=Object.fromEntries((profiles||[]).map(p=>[p.id,p.username]));
+    }
+    if(generation!==wishGeneration)return;
+    wishFeed.replaceChildren();
+    if(!rows.length){wishMessage('Još nema pozdrava. Budi prvi! 💜');return;}
+    const fragment=document.createDocumentFragment();
+    for(const item of rows){
+      const entry=document.createElement('article');entry.className='wish-entry';
+      const name=document.createElement('strong');name.textContent=names[item.user_id]||'Član Prave Raje';
+      const time=document.createElement('time');time.textContent=chatTime(item.created_at);
+      const message=document.createElement('p');message.textContent=item.message;
+      entry.append(name,time,message);fragment.append(entry);
+    }
+    wishFeed.append(fragment);
+  }catch(err){if(generation===wishGeneration)wishMessage('Pozdravi trenutno nisu dostupni: '+friendlyError(err));}
+  finally{wishLoadBusy=false;}
+}
+wishForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!wishUser){openAuth('login');return;}
+  if(wishBusy)return;
+  const message=wishText.value.trim();
+  if(!message||message.length>500){wishFeedback.textContent='Poruka mora imati od 1 do 500 znakova.';return;}
+  wishBusy=true;wishSend.disabled=true;wishFeedback.textContent='Šaljem pozdrav...';
+  try{
+    const {error}=await db.rpc('submit_music_wish',{wish_message:message});
+    if(error)throw error;
+    wishText.value='';wishFeedback.textContent='💜 Tvoj pozdrav je objavljen!';
+    notice('Muzička želja je objavljena! 🎵');
+    await loadWishes();
+  }catch(err){
+    const msg=String(err?.message||'');
+    wishFeedback.textContent=msg.includes('Sacekaj 5 minuta')?'Sačekaj 5 minuta prije novog pozdrava.':'Slanje nije uspjelo: '+friendlyError(err);
+  }finally{wishBusy=false;wishSend.disabled=!wishUser;}
+});
+document.getElementById('wishesNav').addEventListener('click',()=>document.getElementById('wishesPanel').scrollIntoView({behavior:'smooth',block:'start'}));
+if(db){loadWishes();wishTimer=setInterval(()=>{if(!document.hidden)loadWishes();},20000);}else wishMessage('Pozdravi trenutno nisu dostupni.');
 
 // PRAVA RAJA - javni chat (Supabase RLS kontrolise pristup)
 const chatMessages=document.getElementById('chatMessages');

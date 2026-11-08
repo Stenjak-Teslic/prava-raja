@@ -70,11 +70,25 @@
 .profile-identity{text-align:center;margin:16px 0}.profile-photo{height:112px;width:112px;border-radius:50%;border:3px solid #d633df;object-fit:cover;background:#202c62;display:block;margin:0 auto 10px}.profile-identity h3{margin:6px 0}
 .profile-field{display:block;margin:14px 0;color:#d9e1ff}.profile-field input,.profile-field textarea{display:block;width:100%;margin-top:6px;padding:11px;border-radius:11px;border:1px solid #6171ae;background:#0a1230;color:white}.profile-field textarea{min-height:85px}
 .profile-actions{display:flex;gap:10px;flex-wrap:wrap}.profile-actions button{flex:1}.profile-message{min-height:20px;color:#ffd4f4;line-height:1.5}.profile-file-note{font-size:12px;color:#b8c5e3}
+
+/* Galerija registrovanih clanova */
+.members-modal{position:fixed;inset:0;z-index:78;background:#030718e8;display:none;align-items:center;justify-content:center;padding:14px}
+.members-modal.open{display:flex}
+.members-dialog{width:min(950px,100%);max-height:91vh;overflow:auto;background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;padding:22px;box-shadow:0 18px 65px #000c}
+.members-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.members-top h2{margin:0}
+.members-search{width:100%;margin:18px 0 10px;padding:13px;border:1px solid #6171ae;border-radius:12px;background:#0a1230;color:#fff}
+.members-count{color:#b8c5e3;font-size:13px;margin:0 0 15px}
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:13px}
+.member-card{display:flex;flex-direction:column;align-items:center;gap:9px;min-height:185px;padding:20px 12px;border-radius:17px;background:linear-gradient(145deg,#222453,#111b3c);border:1px solid #495da1;color:#fff;cursor:pointer;overflow-wrap:anywhere;text-align:center}
+.member-card:hover,.member-card:focus-visible{border-color:#ff25b8;box-shadow:0 0 15px #b900e177;outline:none;transform:translateY(-2px)}
+.member-card img{width:82px;height:82px;border-radius:50%;object-fit:cover;border:2px solid #d633df;background:#202c62}
+.member-card strong{font-size:16px}.member-card small{color:#b8c5e3;font-size:12px}
+@media(max-width:520px){.members-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.member-card{padding:15px 6px;min-height:170px}.members-dialog{padding:16px}}
 </style>
 </head>
 <body>
 <header><div><div class="logo">🎧 Prava <span>Raja ♡</span></div><p>Gdje god da si, uvijek si među svojom rajom!</p></div><div class="header-note"><strong>Teslić</strong><small>Za raju iz BiH i dijaspore</small></div></header>
-<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button data-demo>♙ Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
+<nav><button class="active">⌂ Početna</button><button data-demo>📻 Radio</button><button data-demo>💬 Chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="dmSoundNav" type="button" title="Uključi ili isključi zvuk privatnih poruka">🔕 Zvuk poruka</button><button data-demo>♫ Želje i pozdravi</button><button data-demo>▤ Vijesti</button><button data-demo>▧ Galerija</button><button id="membersNav" type="button">👥 Članovi</button><button id="loginNav" type="button">Prijava</button><button id="registerNav" type="button">Registracija</button><button id="userNav" class="auth-hidden" type="button"></button><button id="logoutNav" class="auth-hidden" type="button">Odjava</button></nav>
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
@@ -92,6 +106,16 @@
  <form class="dm-form" id="dmForm"><input id="dmText" maxlength="2000" placeholder="Napiši privatnu poruku..." aria-label="Privatna poruka" required disabled><button id="dmSend" class="pink" type="submit" disabled>Pošalji</button></form><div class="dm-hint" id="dmHint" role="status">Samo ti i primalac možete vidjeti ovaj razgovor.</div></div></div></div>
 </div>
 
+
+<div id="membersModal" class="members-modal" role="dialog" aria-modal="true" aria-labelledby="membersTitle" aria-hidden="true">
+ <div class="members-dialog">
+  <div class="members-top"><h2 id="membersTitle">👥 Naša raja</h2><button id="membersClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+  <p class="muted">Upoznaj članove Prave Raje iz BiH i dijaspore. 💜</p>
+  <input id="membersSearch" class="members-search" type="search" maxlength="100" placeholder="🔎 Pretraži članove po imenu ili gradu..." aria-label="Pretraži članove">
+  <p id="membersCount" class="members-count" role="status">Učitavanje članova...</p>
+  <div id="membersGrid" class="members-grid"></div>
+ </div>
+</div>
 <div id="profileModal" class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle" aria-hidden="true">
  <div class="profile-dialog">
   <div class="profile-top"><h2 id="profileTitle">👤 Moj profil</h2><button id="profileClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
@@ -254,12 +278,68 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeAuth()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeAuth()});
 function friendlyError(error){const m=(error?.message||'').toLowerCase();if(m.includes('invalid login credentials'))return 'Pogrešan e-mail ili lozinka, ili račun još nije potvrđen.';if(m.includes('email not confirmed'))return 'Prvo potvrdi e-mail putem linka koji si dobio/la.';if(m.includes('already registered'))return 'Ova e-mail adresa je već registrovana.';if(m.includes('database error')||m.includes('duplicate key'))return 'Registracija nije uspjela. Moguće je da je korisničko ime zauzeto. Probaj drugo.';if(m.includes('rate limit'))return 'Previše pokušaja. Sačekaj malo i pokušaj ponovo.';return error?.message||'Došlo je do greške. Pokušaj ponovo.';}
 authForm.addEventListener('submit',async e=>{e.preventDefault();if(!db){authMsg.textContent='Biblioteka za prijavu nije učitana. Provjeri internet vezu i osvježi stranicu.';return;}const submit=document.getElementById('authSubmit');const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;const username=document.getElementById('authUsername').value.trim();if(authMode==='register'&&!/^[A-Za-z0-9_]{3,25}$/.test(username)){authMsg.textContent='Korisničko ime mora imati 3–25 znakova: slova A–Z, brojevi ili donja crta (_).';return;}submit.disabled=true;authMsg.textContent='Molimo sačekaj...';try{if(authMode==='register'){const {data,error}=await db.auth.signUp({email,password,options:{data:{username},emailRedirectTo:SITE_URL}});if(error)throw error;authMsg.textContent=data.session?'Registracija je uspjela! Dobro došao/la u Pravu Raju.':'Provjeri svoj e-mail i klikni na link za potvrdu registracije. Nakon potvrde vrati se i prijavi.';if(data.session)setTimeout(closeAuth,1800);}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;notice('Uspješna prijava! Dobro došao/la.');closeAuth();}}catch(err){authMsg.textContent=friendlyError(err);}finally{submit.disabled=false;}});
-async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);if(!user)closeProfile();}
+async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);updateDmAuth(user);if(!user){closeProfile();closeMembers();}}
 document.getElementById('userNav').addEventListener('click',openMyProfile);
 document.getElementById('myProfileSide').addEventListener('click',openMyProfile);
 document.getElementById('logoutNav').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notice('Odjava nije uspjela: '+friendlyError(error));else notice('Uspješno si se odjavio/la.');});
 if(db){db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>renderUser(session),0)});db.auth.getSession().then(({data})=>renderUser(data.session)).catch(()=>{});}else notice('Sistem prijave trenutno nije dostupan.');
 
+
+
+// Galerija clanova: javni profilni podaci dostupni prijavljenim clanovima.
+const membersModal=document.getElementById('membersModal');
+const membersGrid=document.getElementById('membersGrid');
+const membersSearch=document.getElementById('membersSearch');
+const membersCount=document.getElementById('membersCount');
+let membersPeople=[],membersPreviousFocus=null,membersRequest=0;
+function closeMembers(){
+ if(!membersModal.classList.contains('open'))return;
+ membersModal.classList.remove('open');membersModal.setAttribute('aria-hidden','true');
+ membersRequest++;
+ if(membersPreviousFocus?.isConnected)membersPreviousFocus.focus();
+}
+function drawMembers(){
+ const term=membersSearch.value.trim().toLocaleLowerCase('bs');
+ const shown=membersPeople.filter(p=>String(p.username||'').toLocaleLowerCase('bs').includes(term)||String(p.location||'').toLocaleLowerCase('bs').includes(term));
+ membersCount.textContent=shown.length+' od '+membersPeople.length+' članova'+(membersPeople.length===500?' (prvih 500)':'');
+ membersGrid.replaceChildren();
+ if(!shown.length){const empty=document.createElement('p');empty.className='online-empty';empty.textContent='Nema članova koji odgovaraju pretrazi.';membersGrid.append(empty);return;}
+ const fragment=document.createDocumentFragment();
+ for(const person of shown){
+  const card=document.createElement('button');card.type='button';card.className='member-card';card.title='Pogledaj profil '+person.username;
+  const photo=document.createElement('img');photo.alt='Profilna fotografija člana '+person.username;photo.loading='lazy';photo.referrerPolicy='no-referrer';photo.src=person.avatar_url||profileDefaultPhoto;
+  photo.addEventListener('error',()=>{photo.onerror=null;photo.src=profileDefaultPhoto;});
+  const name=document.createElement('strong');name.textContent=person.username||'Član';
+  const city=document.createElement('small');city.textContent=person.location||'Grad nije naveden';
+  card.append(photo,name,city);
+  card.addEventListener('click',()=>{closeMembers();openMemberProfile(person.id);});
+  fragment.append(card);
+ }
+ membersGrid.append(fragment);
+}
+async function openMembers(){
+ if(!db){notice('Članovi trenutno nisu dostupni.');return;}
+ const {data:sessionData,error:sessionError}=await db.auth.getSession();
+ if(sessionError||!sessionData.session?.user){openAuth('login');return;}
+ membersPreviousFocus=document.activeElement;
+ membersModal.classList.add('open');membersModal.setAttribute('aria-hidden','false');
+ membersSearch.value='';membersPeople=[];membersGrid.replaceChildren();
+ membersCount.textContent='Učitavanje članova...';
+ document.getElementById('membersClose').focus();
+ const request=++membersRequest;
+ try{
+  const {data,error}=await db.from('profiles').select('id,username,avatar_url,location').order('username',{ascending:true}).limit(500);
+  if(request!==membersRequest||!membersModal.classList.contains('open'))return;
+  if(error)throw error;
+  membersPeople=(data||[]).filter(p=>p.id&&typeof p.username==='string');
+  drawMembers();
+ }catch(err){if(request===membersRequest)membersCount.textContent='Ne mogu učitati članove: '+friendlyError(err);}
+}
+document.getElementById('membersNav').addEventListener('click',openMembers);
+document.getElementById('membersClose').addEventListener('click',closeMembers);
+membersModal.addEventListener('click',e=>{if(e.target===membersModal)closeMembers();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMembers();});
+membersSearch.addEventListener('input',drawMembers);
 
 // PRAVA RAJA - javni chat (Supabase RLS kontrolise pristup)
 const chatMessages=document.getElementById('chatMessages');

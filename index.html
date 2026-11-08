@@ -16,6 +16,12 @@
 .bubble{white-space:pre-wrap;overflow-wrap:anywhere}
 .chat-empty{margin:auto;text-align:center;color:#b8c5e3;line-height:1.7}
 @media(max-width:680px){.messages{height:380px}}
+/* Online raja */
+.online-count{font-weight:700;color:#8ef5b6;margin:10px 0}
+.online-list{max-height:245px;overflow-y:auto}
+.online-list .person{padding:7px 3px;border-bottom:1px solid #ffffff12}
+.online-list .person strong{overflow-wrap:anywhere}
+.online-empty{color:var(--muted);font-size:13px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -24,7 +30,7 @@
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">Stream ćemo povezati nakon provjere dozvole i kompatibilnosti.</p></div><div class="panel side-menu"><button data-demo>💬 Javni chat</button><button data-demo>✉ Privatne poruke</button><button data-demo>♙ Online raja</button><button data-demo>♙ Moj profil</button><button data-demo>⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
-<aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info">Broj aktivnih članova prikazivat će se nakon povezivanja sistema.</p><div class="person"><span class="avatar">👤</span><strong>Ovdje će biti članovi</strong></div><button class="pink" style="width:100%" data-demo>Prikaži članove</button></div></aside>
+<aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
 <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-box"><div class="auth-top"><h2 id="authTitle">Prijava u Pravu Raju</h2><button class="auth-close" id="authClose" type="button" aria-label="Zatvori">×</button></div>
@@ -58,7 +64,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeAuth()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeAuth()});
 function friendlyError(error){const m=(error?.message||'').toLowerCase();if(m.includes('invalid login credentials'))return 'Pogrešan e-mail ili lozinka, ili račun još nije potvrđen.';if(m.includes('email not confirmed'))return 'Prvo potvrdi e-mail putem linka koji si dobio/la.';if(m.includes('already registered'))return 'Ova e-mail adresa je već registrovana.';if(m.includes('database error')||m.includes('duplicate key'))return 'Registracija nije uspjela. Moguće je da je korisničko ime zauzeto. Probaj drugo.';if(m.includes('rate limit'))return 'Previše pokušaja. Sačekaj malo i pokušaj ponovo.';return error?.message||'Došlo je do greške. Pokušaj ponovo.';}
 authForm.addEventListener('submit',async e=>{e.preventDefault();if(!db){authMsg.textContent='Biblioteka za prijavu nije učitana. Provjeri internet vezu i osvježi stranicu.';return;}const submit=document.getElementById('authSubmit');const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;const username=document.getElementById('authUsername').value.trim();if(authMode==='register'&&!/^[A-Za-z0-9_]{3,25}$/.test(username)){authMsg.textContent='Korisničko ime mora imati 3–25 znakova: slova A–Z, brojevi ili donja crta (_).';return;}submit.disabled=true;authMsg.textContent='Molimo sačekaj...';try{if(authMode==='register'){const {data,error}=await db.auth.signUp({email,password,options:{data:{username},emailRedirectTo:SITE_URL}});if(error)throw error;authMsg.textContent=data.session?'Registracija je uspjela! Dobro došao/la u Pravu Raju.':'Provjeri svoj e-mail i klikni na link za potvrdu registracije. Nakon potvrde vrati se i prijavi.';if(data.session)setTimeout(closeAuth,1800);}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;notice('Uspješna prijava! Dobro došao/la.');closeAuth();}}catch(err){authMsg.textContent=friendlyError(err);}finally{submit.disabled=false;}});
-async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);}
+async function renderUser(session){const user=session?.user;document.getElementById('loginNav').classList.toggle('auth-hidden',!!user);document.getElementById('registerNav').classList.toggle('auth-hidden',!!user);document.getElementById('userNav').classList.toggle('auth-hidden',!user);document.getElementById('logoutNav').classList.toggle('auth-hidden',!user);if(user){let username=user.user_metadata?.username||'Član';try{const {data}=await db.from('profiles').select('username').eq('id',user.id).maybeSingle();if(data?.username)username=data.username;}catch(_){}document.getElementById('userNav').textContent='👤 '+username;}await updateChatAuth(user);await updateOnlineAuth(user);}
 document.getElementById('userNav').addEventListener('click',()=>notice('Profil člana ćemo dodati u sljedećem koraku.'));
 document.getElementById('logoutNav').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notice('Odjava nije uspjela: '+friendlyError(error));else notice('Uspješno si se odjavio/la.');});
 if(db){db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>renderUser(session),0)});db.auth.getSession().then(({data})=>renderUser(data.session)).catch(()=>{});}else notice('Sistem prijave trenutno nije dostupan.');
@@ -165,6 +171,82 @@ document.getElementById('chatForm').addEventListener('submit',async(e)=>{
     await loadChat();
   }catch(err){chatNote.textContent='Slanje nije uspjelo: '+friendlyError(err);}
   finally{chatSend.disabled=!chatUser;}
+});
+
+
+// PRAVA RAJA - Online raja (privatni Supabase Realtime Presence kanal)
+const onlineInfo=document.getElementById('onlineInfo');
+const onlineCount=document.getElementById('onlineCount');
+const onlineList=document.getElementById('onlineList');
+const onlineShow=document.getElementById('onlineShow');
+let onlineChannel=null,onlineUserId=null,onlineGeneration=0;
+function onlineMessage(message){onlineList.replaceChildren();const p=document.createElement('p');p.className='online-empty';p.textContent=message;onlineList.append(p);}
+function drawOnline(channel){
+  if(!channel)return;
+  const state=channel.presenceState();
+  const unique=new Map();
+  for(const [key,entries] of Object.entries(state)){
+    for(const entry of entries||[]){
+      if(!entry||typeof entry.username!=='string'||!entry.username.trim())continue;
+      const id=typeof entry.user_id==='string'?entry.user_id:key;
+      if(!unique.has(id))unique.set(id,entry.username.slice(0,25));
+    }
+  }
+  onlineCount.textContent=unique.size+' '+(unique.size===1?'član online':'članova online');
+  onlineInfo.textContent='Trenutno prisutna raja (bez e-mail adresa).';
+  onlineList.replaceChildren();
+  if(!unique.size){onlineMessage('Trenutno nema prijavljenih članova.');return;}
+  for(const [id,name] of [...unique.entries()].sort((a,b)=>a[1].localeCompare(b[1],'bs'))){
+    const line=document.createElement('div');line.className='person';
+    const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent='🟢';
+    const label=document.createElement('strong');label.textContent=name+(id===onlineUserId?' (ti)':'');
+    line.append(avatar,label);onlineList.append(line);
+  }
+}
+async function updateOnlineAuth(user){
+  const nextId=user?.id||null;
+  if(nextId===onlineUserId && (onlineChannel||!nextId))return;
+  const generation=++onlineGeneration;
+  const previous=onlineChannel;onlineChannel=null;onlineUserId=nextId;
+  onlineCount.textContent='';
+  if(previous&&db){try{await previous.untrack();await db.removeChannel(previous);}catch(_){}}
+  if(generation!==onlineGeneration)return;
+  if(!nextId){onlineInfo.textContent='Prijavi se da vidiš ko je trenutno online.';onlineMessage('Prijava je potrebna.');return;}
+  onlineInfo.textContent='Povezivanje sa online rajom...';onlineMessage('Učitavanje prisutnih članova...');
+  try{
+    // Privatni kanali koriste JWT prijavljenog člana za RLS pravila.
+    const {data:sessionData,error:sessionError}=await db.auth.getSession();
+    if(sessionError)throw sessionError;
+    const token=sessionData.session?.access_token;
+    if(!token||sessionData.session.user.id!==nextId)throw new Error('Prijava nije aktivna.');
+    db.realtime.setAuth(token);
+    const {data:profile}=await db.from('profiles').select('username').eq('id',nextId).maybeSingle();
+    const username=profile?.username||user.user_metadata?.username||'Član';
+    if(generation!==onlineGeneration)return;
+    const channel=db.channel('prava-raja-online',{config:{private:true,presence:{key:nextId}}});
+    onlineChannel=channel;
+    channel.on('presence',{event:'sync'},()=>{if(generation===onlineGeneration)drawOnline(channel);});
+    channel.subscribe(async status=>{
+      if(generation!==onlineGeneration)return;
+      if(status==='SUBSCRIBED'){
+        const result=await channel.track({user_id:nextId,username,online_at:new Date().toISOString()});
+        if(generation===onlineGeneration && result!=='ok'){
+          onlineInfo.textContent='Prisustvo nije moguće prijaviti.';
+          onlineMessage('Provjeri Realtime sigurnosna pravila.');
+        }
+      }else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
+        onlineInfo.textContent='Veza za Online raja nije dostupna.';
+        onlineMessage('Provjeri Realtime pravila i osvježi stranicu.');
+      }
+    });
+  }catch(err){
+    if(generation===onlineGeneration){onlineInfo.textContent='Online raja trenutno nije dostupna.';onlineMessage(friendlyError(err));}
+  }
+}
+onlineShow.addEventListener('click',()=>{
+  if(!onlineUserId){openAuth('login');return;}
+  if(onlineChannel){drawOnline(onlineChannel);onlineList.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  else notice('Povezivanje sa Online rajom još traje.');
 });
 
 </script>

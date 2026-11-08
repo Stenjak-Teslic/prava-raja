@@ -16,6 +16,16 @@
 .bubble{white-space:pre-wrap;overflow-wrap:anywhere}
 .chat-empty{margin:auto;text-align:center;color:#b8c5e3;line-height:1.7}
 @media(max-width:680px){.messages{height:380px}}
+/* Prozor sa online clanovima */
+.online-modal{position:fixed;inset:0;z-index:65;background:#030718df;display:none;align-items:center;justify-content:center;padding:16px}
+.online-modal.open{display:flex}
+.online-dialog{width:min(480px,100%);max-height:85vh;overflow:auto;background:linear-gradient(140deg,#18204b,#0b1433);border:1px solid #d633df;border-radius:20px;padding:22px;box-shadow:0 18px 65px #000c}
+.online-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.online-dialog-head h2{margin:0;font-size:21px}
+.online-close{background:transparent;border:0;color:white;font-size:30px;padding:2px 8px}
+.online-modal-list{margin:16px 0;max-height:52vh;overflow:auto}
+.online-modal-list .person{padding:10px 4px;border-bottom:1px solid #ffffff1b}
+.online-modal-list .person strong{overflow-wrap:anywhere}
 /* Online raja */
 .online-count{font-weight:700;color:#8ef5b6;margin:10px 0}
 .online-list{max-height:245px;overflow-y:auto}
@@ -32,6 +42,11 @@
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
 <aside class="right"><div class="panel neon pad"><h3>🎵 Muzičke želje i pozdravi</h3><textarea id="wish" placeholder="Napiši svoju želju ili pozdrav..."></textarea><button class="pink" style="width:100%" data-demo>➤ Pošalji želju</button><p class="info">Ova opcija još nije povezana s radiostanicom.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
+<div id="onlineModal" class="online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineModalTitle" aria-hidden="true">
+ <div class="online-dialog"><div class="online-dialog-head"><h2 id="onlineModalTitle">🟢 Trenutno online raja</h2><button id="onlineClose" class="online-close" type="button" aria-label="Zatvori">×</button></div>
+ <p class="online-count" id="onlineModalCount"></p><div class="online-modal-list" id="onlineModalList"></div>
+ <button class="pink" id="onlineCloseBottom" type="button" style="width:100%">Zatvori</button></div>
+</div>
 <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-box"><div class="auth-top"><h2 id="authTitle">Prijava u Pravu Raju</h2><button class="auth-close" id="authClose" type="button" aria-label="Zatvori">×</button></div>
  <div class="auth-tabs"><button id="tabLogin" class="selected" type="button">Prijava</button><button id="tabRegister" type="button">Registracija</button></div>
@@ -179,8 +194,26 @@ const onlineInfo=document.getElementById('onlineInfo');
 const onlineCount=document.getElementById('onlineCount');
 const onlineList=document.getElementById('onlineList');
 const onlineShow=document.getElementById('onlineShow');
+const onlineModal=document.getElementById('onlineModal');
+const onlineModalCount=document.getElementById('onlineModalCount');
+const onlineModalList=document.getElementById('onlineModalList');
+let onlinePreviousFocus=null;
+function syncOnlineModal(){
+  if(!onlineModal.classList.contains('open'))return;
+  onlineModalCount.textContent=onlineCount.textContent||'Online raja';
+  onlineModalList.replaceChildren(...Array.from(onlineList.children).map(node=>node.cloneNode(true)));
+}
+function closeOnlineModal(){
+  if(!onlineModal.classList.contains('open'))return;
+  onlineModal.classList.remove('open');onlineModal.setAttribute('aria-hidden','true');
+  if(onlinePreviousFocus?.isConnected)onlinePreviousFocus.focus();
+}
+document.getElementById('onlineClose').addEventListener('click',closeOnlineModal);
+document.getElementById('onlineCloseBottom').addEventListener('click',closeOnlineModal);
+onlineModal.addEventListener('click',e=>{if(e.target===onlineModal)closeOnlineModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOnlineModal();});
 let onlineChannel=null,onlineUserId=null,onlineGeneration=0;
-function onlineMessage(message){onlineList.replaceChildren();const p=document.createElement('p');p.className='online-empty';p.textContent=message;onlineList.append(p);}
+function onlineMessage(message){onlineList.replaceChildren();const p=document.createElement('p');p.className='online-empty';p.textContent=message;onlineList.append(p);syncOnlineModal();}
 function drawOnline(channel){
   if(!channel)return;
   const state=channel.presenceState();
@@ -202,6 +235,7 @@ function drawOnline(channel){
     const label=document.createElement('strong');label.textContent=name+(id===onlineUserId?' (ti)':'');
     line.append(avatar,label);onlineList.append(line);
   }
+  syncOnlineModal();
 }
 async function updateOnlineAuth(user){
   const nextId=user?.id||null;
@@ -211,7 +245,7 @@ async function updateOnlineAuth(user){
   onlineCount.textContent='';
   if(previous&&db){try{await previous.untrack();await db.removeChannel(previous);}catch(_){}}
   if(generation!==onlineGeneration)return;
-  if(!nextId){onlineInfo.textContent='Prijavi se da vidiš ko je trenutno online.';onlineMessage('Prijava je potrebna.');return;}
+  if(!nextId){closeOnlineModal();onlineInfo.textContent='Prijavi se da vidiš ko je trenutno online.';onlineMessage('Prijava je potrebna.');return;}
   onlineInfo.textContent='Povezivanje sa online rajom...';onlineMessage('Učitavanje prisutnih članova...');
   try{
     // Privatni kanali koriste JWT prijavljenog člana za RLS pravila.
@@ -245,8 +279,11 @@ async function updateOnlineAuth(user){
 }
 onlineShow.addEventListener('click',()=>{
   if(!onlineUserId){openAuth('login');return;}
-  if(onlineChannel){drawOnline(onlineChannel);onlineList.scrollIntoView({behavior:'smooth',block:'nearest'});}
-  else notice('Povezivanje sa Online rajom još traje.');
+  if(onlineChannel)drawOnline(onlineChannel);
+  onlinePreviousFocus=document.activeElement;
+  onlineModal.classList.add('open');onlineModal.setAttribute('aria-hidden','false');
+  syncOnlineModal();
+  document.getElementById('onlineClose').focus();
 });
 
 </script>

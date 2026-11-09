@@ -1314,17 +1314,16 @@ document.getElementById('settingsLogout').addEventListener('click',()=>{closeSet
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNews();});
  })();</script>
 <script>
-/* Puls Prave Raje: samo zbirni podaci, bez privatnih poruka. */
+/* Puls Prave Raje: zbirni podaci bez privatnih poruka. */
 (function(){
  const members=document.getElementById('pulseMembers');
  const messages=document.getElementById('pulseMessages');
  const status=document.getElementById('pulseStatus');
- let currentUser=null,loading=false,version=0;
- // Pocetak danasnjeg dana po vremenu u Bosni (ukljucujuci ljetno racunanje vremena).
+ let currentUserId=null, generation=0, busy=false, pending=false;
  function sarajevoMidnight(){
   const now=new Date();
-  const dateParts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Sarajevo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
-  const part=k=>Number(dateParts.find(x=>x.type===k).value);
+  const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Sarajevo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const part=k=>Number(parts.find(x=>x.type===k).value);
   const utcMidnight=Date.UTC(part('year'),part('month')-1,part('day'));
   const offsetParts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Sarajevo',timeZoneName:'shortOffset'}).formatToParts(new Date(utcMidnight));
   const offset=offsetParts.find(x=>x.type==='timeZoneName')?.value||'GMT+1';
@@ -1333,28 +1332,41 @@ document.getElementById('settingsLogout').addEventListener('click',()=>{closeSet
   return new Date(utcMidnight-minutes*60000).toISOString();
  }
  async function refresh(){
-  if(!db||!currentUser||loading||document.hidden)return;
-  const run=version;loading=true;
+  if(!db||!currentUserId||document.hidden)return;
+  if(busy){pending=true;return;}
+  busy=true;
+  const run=generation;
   try{
    const [m,c]=await Promise.all([
     db.from('profiles').select('id',{count:'exact',head:true}),
     db.from('chat_messages').select('id',{count:'exact',head:true}).gte('created_at',sarajevoMidnight())
    ]);
-   if(run!==version)return;
+   if(run!==generation)return;
    members.textContent=m.error?'—':new Intl.NumberFormat('bs-BA').format(m.count??0);
    messages.textContent=c.error?'—':new Intl.NumberFormat('bs-BA').format(c.count??0);
    status.textContent=m.error||c.error?'Dio statistike trenutno nije dostupan.':'Brojevi se automatski osvježavaju.';
-  }catch(_){if(run===version)status.textContent='Statistika trenutno nije dostupna.';}
-  finally{loading=false;}
+   if(m.error||c.error)console.warn('Puls Prave Raje:',m.error||c.error);
+  }catch(err){
+   if(run===generation){status.textContent='Statistika trenutno nije dostupna. Pokušavam ponovo...';console.warn('Puls Prave Raje:',err);}
+  }finally{
+   busy=false;
+   if(pending){pending=false;if(currentUserId)refresh();}
+  }
  }
- function setUser(user){currentUser=user||null;version++;
-  if(!currentUser){members.textContent='—';messages.textContent='—';status.textContent='Prijavi se za statistiku zajednice.';return;}
-  status.textContent='Učitavanje statistike...';refresh();
+ function setUser(user){
+  const id=user?.id||null;
+  if(id===currentUserId){if(id&&members.textContent==='—')refresh();return;}
+  currentUserId=id;generation++;
+  members.textContent='—';messages.textContent='—';
+  if(!id){status.textContent='Prijavi se za statistiku zajednice.';return;}
+  status.textContent='Učitavanje statistike...';
+  refresh();
  }
- if(db){db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>setUser(session?.user),0);});
-  db.auth.getSession().then(({data})=>setUser(data.session?.user)).catch(()=>{});
+ if(db){
+  db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>setUser(session?.user),0);});
+  db.auth.getSession().then(({data})=>setUser(data.session?.user)).catch(err=>{status.textContent='Provjera prijave nije uspjela.';console.warn('Puls prijava:',err);});
  }
- setInterval(refresh,60000);
+ setInterval(()=>{if(currentUserId)refresh();},15000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();
 </script>

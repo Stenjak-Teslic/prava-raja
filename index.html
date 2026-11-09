@@ -45,6 +45,10 @@
 .dm-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px}.dm-bubble{padding:10px 13px;border-radius:14px;max-width:85%;background:#243362;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}.dm-bubble.mine{background:#71318d;align-self:flex-end}.dm-bubble small{display:block;margin-top:5px;font-size:11px;color:#c6d3f0}
 .dm-form{display:flex;gap:8px;padding:12px;border-top:1px solid #405080}.dm-form input{flex:1;min-width:0;background:#101d41;color:#fff;border:1px solid #5262a2;border-radius:11px;padding:11px}.dm-form button:disabled{opacity:.5}.dm-hint{padding:0 13px 9px;color:#bdc9ed;font-size:12px;min-height:20px}
 @media(max-width:600px){.dm-dialog{height:92vh}.dm-body{grid-template-columns:125px minmax(0,1fr)}.dm-contacts{padding:7px}.dm-contact{padding:9px 5px;font-size:12px}.dm-messages{padding:8px}.dm-bubble{max-width:95%;font-size:13px}.dm-form{padding:8px}}
+/* Brisanje razgovora samo za vlastiti prikaz */
+.dm-delete{border:1px solid #f16c85;background:#482039;color:#ffe0e8;border-radius:9px;padding:7px 9px;font-size:12px;flex:none}
+.dm-delete:hover{background:#762b4b}
+.dm-to{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 /* Online raja */
 .online-count{font-weight:700;color:#8ef5b6;margin:10px 0}
 .online-list{max-height:245px;overflow-y:auto}
@@ -638,6 +642,35 @@ const dmSend=document.getElementById('dmSend');
 const dmHint=document.getElementById('dmHint');
 let dmUser=null,dmSelected=null,dmPeople=[],dmTimer=null,dmRequest=0,dmLastSent=0,dmPreviousFocus=null,dmLoading=false;
 let dmUnreadTimer=null,dmUnreadBusy=false,dmUnreadCounts=new Map(),dmUnreadTotal=0,dmUnreadGeneration=0;
+let dmHidden=new Map(),dmActiveContacts=new Set(),dmSyncBusy=false;
+async function dmRefreshHidden(){
+  if(!dmUser)return;
+  const id=dmUser.id;
+  const {data,error}=await db.from('dm_hidden_conversations').select('other_id,hidden_at').eq('user_id',id);
+  if(error)throw error;
+  if(dmUser?.id===id)dmHidden=new Map((data||[]).map(r=>[r.other_id,r.hidden_at]));
+}
+function dmIsVisible(message,otherId){
+  const cutoff=dmHidden.get(otherId);
+  return !cutoff||new Date(message.created_at).getTime()>new Date(cutoff).getTime();
+}
+async function dmDeleteConversation(){
+  if(!dmUser||!dmSelected)return;
+  const person=dmSelected,me=dmUser.id;
+  if(!confirm('Obrisati razgovor s članom '+person.username+' samo kod tebe? Druga osoba zadržava poruke.'))return;
+  const {data,error}=await db.from('dm_hidden_conversations')
+    .upsert({user_id:me,other_id:person.id,hidden_at:new Date().toISOString()},{onConflict:'user_id,other_id'})
+    .select('hidden_at').single();
+  if(error){dmHint.textContent='Brisanje nije uspjelo: '+friendlyError(error);return;}
+  if(dmUser?.id!==me)return;
+  dmHidden.set(person.id,data.hidden_at);dmActiveContacts.delete(person.id);
+  dmSelected=null;dmRequest++;dmTo.textContent='Odaberi člana za razgovor';
+  dmText.value='';dmText.disabled=true;dmSend.disabled=true;
+  dmInfo('Razgovor je uklonjen samo iz tvog prikaza. 💜');
+  dmHint.textContent='Druga osoba i dalje vidi svoje poruke. Novi razgovor možeš započeti pretragom člana.';
+  dmSearch.value='';dmDrawContacts();await dmCheckUnread();
+  notice('Razgovor je uklonjen samo kod tebe. 🗑️');
+}
 // Zvuk se aktivira iskljucivo nakon korisnickog klika.
 const dmSoundToggle=document.getElementById('dmSoundToggle');
 const dmSoundNav=document.getElementById('dmSoundNav');
@@ -698,13 +731,17 @@ async function dmCheckUnread(){
   dmUnreadBusy=true;
   try{
     const {data,error}=await db.from('private_messages')
-      .select('id,sender_id').eq('receiver_id',userId).is('read_at',null)
+      .select('id,sender_id,created_at').eq('receiver_id',userId).is('read_at',null)
       .order('id',{ascending:false}).limit(1000);
     if(error)throw error;
     if(generation!==dmUnreadGeneration||dmUser?.id!==userId)return;
+    await dmRefreshHidden();
+    if(generation!==dmUnreadGeneration||dmUser?.id!==userId)return;
+    const visible=(data||[]).filter(msg=>dmIsVisible(msg,msg.sender_id));
     const counts=new Map();
-    for(const msg of data||[])counts.set(msg.sender_id,(counts.get(msg.sender_id)||0)+1);
-    const total=(data||[]).length;
+    for(const msg of visible)counts.set(msg.sender_id,(counts.get(msg.sender_id)||0)+1);
+    const total=visible.length;
+    for(const msg of visible)dmActiveContacts.add(msg.sender_id);
     if(dmUnreadInitialized&&total>dmUnreadTotal){
       const newSender=[...counts.keys()].find(id=>(counts.get(id)||0)>(dmUnreadCounts.get(id)||0));
       if(newSender){
@@ -750,13 +787,18 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDm();});
 function dmDrawContacts(){
   dmContacts.replaceChildren();
   const term=dmSearch.value.trim().toLocaleLowerCase('bs');
-  const people=dmPeople.filter(p=>p.username.toLocaleLowerCase('bs').includes(term));
-  if(!people.length){const p=document.createElement('p');p.className='online-empty';p.textContent='Nema drugih članova za prikaz.';dmContacts.append(p);return;}
+  const people=dmPeople.filter(p=>p.username.toLocaleLowerCase('bs').includes(term)&& (term.length>0||dmActiveContacts.has(p.id)||dmSelected?.id===p.id));
+  if(!people.length){const p=document.createElement('p');p.className='online-empty';p.textContent=term?'Nema članova za tu pretragu.':'Nema aktivnih razgovora. Pretraži člana iznad da započneš razgovor.';dmContacts.append(p);return;}
   for(const person of people){
     const row=document.createElement('div');row.className='dm-contact-row';
     const b=document.createElement('button');b.type='button';b.className='dm-contact'+(dmSelected?.id===person.id?' selected':'');
     const label=document.createElement('span');label.textContent='👤 '+person.username;b.append(label);
     const profile=memberProfileButton(person.id,'👤','dm-profile-action');profile.title='Pogledaj profil '+person.username;row.append(b,profile);
+    if(dmActiveContacts.has(person.id)){
+      const del=document.createElement('button');del.type='button';del.className='dm-delete';del.textContent='🗑️';
+      del.title='Obriši razgovor samo kod mene';del.setAttribute('aria-label','Obriši razgovor s '+person.username);
+      del.addEventListener('click',()=>{dmSelected=person;dmDeleteConversation();});row.append(del);
+    }
     const unread=dmUnreadCounts.get(person.id)||0;
     if(unread){const badge=document.createElement('span');badge.className='dm-badge';badge.textContent=unread>99?'99+':String(unread);b.append(badge);}
     b.addEventListener('click',()=>dmSelect(person));dmContacts.append(row);
@@ -771,13 +813,38 @@ async function dmLoadPeople(){
     if(error)throw error;
     if(!dmUser||dmUser.id!==id||!dmModal.classList.contains('open'))return;
     dmPeople=(data||[]).filter(p=>p.id!==id&&typeof p.username==='string');
+    await dmSyncConversations();
     dmDrawContacts();
   }catch(err){dmContacts.textContent='Ne mogu učitati članove: '+friendlyError(err);}
+}
+async function dmSyncConversations(){
+  if(!dmUser||dmSyncBusy)return;
+  const me=dmUser.id;dmSyncBusy=true;
+  try{
+    await dmRefreshHidden();
+    // Pregled posljednjih razgovora; starije je uvijek moguce pronaci pretragom.
+    const {data,error}=await db.from('private_messages')
+      .select('sender_id,receiver_id,created_at')
+      .or(`sender_id.eq.${me},receiver_id.eq.${me}`)
+      .order('created_at',{ascending:false}).limit(1000);
+    if(error)throw error;
+    if(dmUser?.id!==me)return;
+    const active=new Set();
+    for(const msg of data||[]){
+      const other=msg.sender_id===me?msg.receiver_id:msg.sender_id;
+      if(dmIsVisible(msg,other))active.add(other);
+    }
+    dmActiveContacts=active;
+    if(dmModal.classList.contains('open'))dmDrawContacts();
+  }catch(err){dmHint.textContent='Lista razgovora nije učitana: '+friendlyError(err);}
+  finally{dmSyncBusy=false;}
 }
 function dmSelect(person){
   if(!dmUser)return;
   dmSelected=person;dmRequest++;
   dmTo.replaceChildren(document.createTextNode('Razgovor sa: '),memberProfileButton(person.id,person.username));
+  const del=document.createElement('button');del.type='button';del.className='dm-delete';del.textContent='🗑️ Obriši razgovor';
+  del.addEventListener('click',dmDeleteConversation);dmTo.append(del);
   dmText.disabled=false;dmSend.disabled=false;dmHint.textContent='Samo ti i '+person.username+' možete čitati ovaj razgovor.';
   dmDrawContacts();dmInfo('Učitavanje razgovora...');dmLoadMessages();dmText.focus();
 }
@@ -794,15 +861,16 @@ async function dmLoadMessages(){
     if(request!==dmRequest||dmUser?.id!==me||dmSelected?.id!==other||!dmModal.classList.contains('open'))return;
     const nearBottom=dmMessages.scrollHeight-dmMessages.scrollTop-dmMessages.clientHeight<100;
     dmMessages.replaceChildren();
-    if(!data?.length){dmInfo('Još nema poruka. Pošalji prvi pozdrav! 💜');return;}
-    for(const msg of [...data].reverse()){
+    const shown=(data||[]).filter(msg=>dmIsVisible(msg,other));
+    if(!shown.length){dmInfo('Još nema poruka u tvom prikazu. Pošalji novi pozdrav! 💜');return;}
+    for(const msg of [...shown].reverse()){
       const bubble=document.createElement('div');bubble.className='dm-bubble'+(msg.sender_id===me?' mine':'');
       const content=document.createElement('div');content.textContent=msg.message;
       const time=document.createElement('small');time.textContent=chatTime(msg.created_at);
       bubble.append(content,time);dmMessages.append(bubble);
     }
     if(nearBottom)dmMessages.scrollTop=dmMessages.scrollHeight;
-    if(request===dmRequest&&dmSelected?.id===other&&data.some(msg=>msg.sender_id===other&&!msg.read_at)){
+    if(request===dmRequest&&dmSelected?.id===other&&shown.some(msg=>msg.sender_id===other&&!msg.read_at)){
       await dmMarkRead(other);
     }
   }catch(err){if(request===dmRequest)dmHint.textContent='Učitavanje nije uspjelo: '+friendlyError(err);}
@@ -816,7 +884,7 @@ async function openDm(){
   dmHint.textContent='Samo pošiljalac i primalac mogu čitati poruke.';
   await dmLoadPeople();
   if(dmTimer)clearInterval(dmTimer);
-  dmTimer=setInterval(()=>{if(!document.hidden&&dmModal.classList.contains('open'))dmLoadMessages();},3000);
+  dmTimer=setInterval(()=>{if(!document.hidden&&dmModal.classList.contains('open')){dmLoadMessages();dmSyncConversations();}},5000);
 }
 document.querySelectorAll('[data-dm-open]').forEach(b=>b.addEventListener('click',openDm));
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){dmCheckUnread();if(dmModal.classList.contains('open'))dmLoadMessages();}});
@@ -832,6 +900,7 @@ document.getElementById('dmForm').addEventListener('submit',async e=>{
     const {error}=await db.from('private_messages').insert({sender_id:me,receiver_id:other,message});
     if(error)throw error;
     dmLastSent=Date.now();dmText.value='';dmHint.textContent='Poruka je poslana.';
+    dmActiveContacts.add(other);dmDrawContacts();
     await dmLoadMessages();
   }catch(err){dmHint.textContent='Slanje nije uspjelo: '+friendlyError(err);}
   finally{dmSend.disabled=!dmUser||!dmSelected;}

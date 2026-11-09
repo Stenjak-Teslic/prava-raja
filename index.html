@@ -29,6 +29,7 @@
 /* Privatne poruke i oznake neprocitanih */
 .dm-badge{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 6px;border-radius:20px;background:#f02956;color:#fff;font-size:12px;font-weight:800;margin-left:7px;vertical-align:middle;box-shadow:0 0 10px #f0295688}
 .dm-badge[hidden]{display:none!important}
+.radio-wish-badge{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 6px;border-radius:20px;background:#f02956;color:#fff;font-size:12px;font-weight:800;margin-left:7px;vertical-align:middle}.radio-wish-badge[hidden]{display:none!important}
 .dm-contact{display:flex!important;align-items:center;justify-content:space-between;gap:5px}
 .dm-contact .dm-badge{flex:none}
 .dm-sound-toggle{border:1px solid #8758a8;border-radius:11px;background:#251b4b;color:#fff;padding:9px 12px;font-weight:700}.dm-sound-toggle[aria-pressed="true"]{border-color:#40e7b5;background:#154a49}.dm-sound-toggle:focus-visible{outline:3px solid #20d8ff;outline-offset:2px}
@@ -414,6 +415,7 @@ wishForm.addEventListener('submit',async e=>{
     wishText.value='';wishFeedback.textContent='💜 Poruka je poslana voditelju!';
     notice('Muzička želja je poslana voditelju! 🎵');
     if(radioAdminModal.classList.contains('open'))loadRadioWishes();
+     checkRadioWishCount();
   }catch(err){
     const msg=String(err?.message||'');
     wishFeedback.textContent=msg.includes('Sacekaj 5 minuta')?'Sačekaj 5 minuta prije novog pozdrava.':'Slanje nije uspjelo: '+friendlyError(err);
@@ -856,8 +858,36 @@ const radioAdminModal=document.getElementById('radioAdminModal');
 const radioAdminInfo=document.getElementById('radioAdminInfo');
 const radioAdminList=document.getElementById('radioAdminList');
 let radioAdminRole=null,radioAdminUserId=null,radioAdminFilter='new',radioAdminTimer=null,radioAdminRequest=0,radioAdminPreviousFocus=null;
+// Brojac novih zelja: dostupan samo ovlastenim voditeljima.
+const radioWishBadge=document.createElement('span');
+radioWishBadge.className='radio-wish-badge';radioWishBadge.hidden=true;
+radioWishBadge.setAttribute('aria-label','Nove muzicke zelje');
+radioAdminNav.append(radioWishBadge);
+let radioWishTimer=null,radioWishGeneration=0,radioWishBusy=false;
+function clearRadioWishCount(){
+ if(radioWishTimer){clearInterval(radioWishTimer);radioWishTimer=null;}
+ radioWishGeneration++;radioWishBadge.hidden=true;radioWishBadge.textContent='';
+}
+async function checkRadioWishCount(){
+ if(!db||!radioAdminRole||!radioAdminUserId||radioWishBusy||document.hidden)return;
+ const generation=radioWishGeneration,id=radioAdminUserId;
+ radioWishBusy=true;
+ try{
+  const {count,error}=await db.from('music_wishes').select('id',{count:'exact',head:true}).eq('status','new');
+  if(error)throw error;
+  if(generation!==radioWishGeneration||radioAdminUserId!==id||!radioAdminRole)return;
+  const total=count||0;
+  radioWishBadge.hidden=total===0;
+  radioWishBadge.textContent=total>99?'99+':String(total);
+  radioAdminNav.title=total?total+' novih muzickih zelja':'Nema novih muzickih zelja';
+ }catch(err){
+  if(generation===radioWishGeneration){radioWishBadge.hidden=true;console.warn('Brojac muzickih zelja:',err.message);}
+ }finally{radioWishBusy=false;}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkRadioWishCount();});
+
 async function updateRadioAdminAuth(user){
- const id=user?.id||null;radioAdminUserId=id;radioAdminRole=null;
+ const id=user?.id||null;clearRadioWishCount();radioAdminUserId=id;radioAdminRole=null;
  radioAdminNav.classList.add('auth-hidden');closeRadioAdmin();
  if(!id||!db)return;
  try{
@@ -865,6 +895,7 @@ async function updateRadioAdminAuth(user){
   if(error||radioAdminUserId!==id)return;
   if(data?.role==='owner'||data?.role==='host'){
    radioAdminRole=data.role;radioAdminNav.classList.remove('auth-hidden');
+   checkRadioWishCount();radioWishTimer=setInterval(checkRadioWishCount,5000);
   }
  }catch(err){console.warn('Provjera uloge:',err);}
 }
@@ -877,7 +908,7 @@ async function openRadioAdmin(){
  if(!radioAdminRole){notice('Panel je dostupan samo ovlaštenim voditeljima.');return;}
  radioAdminPreviousFocus=document.activeElement;radioAdminModal.classList.add('open');radioAdminModal.setAttribute('aria-hidden','false');
  document.getElementById('radioAdminStaff').hidden=radioAdminRole!=='owner';
- document.getElementById('radioAdminClose').focus();await loadRadioWishes();
+ document.getElementById('radioAdminClose').focus();await loadRadioWishes();checkRadioWishCount();
  if(radioAdminRole==='owner')loadRadioStaff();
  radioAdminTimer=setInterval(()=>{if(!document.hidden&&radioAdminModal.classList.contains('open'))loadRadioWishes();},12000);
 }
@@ -896,6 +927,7 @@ async function loadRadioWishes(){
  try{
   const {data,error}=await db.from('music_wishes').select('id,user_id,message,created_at,status').eq('status',radioAdminFilter).order('created_at',{ascending:false}).limit(100);
   if(error)throw error;if(req!==radioAdminRequest)return;
+   checkRadioWishCount();
   const rows=data||[],ids=[...new Set(rows.map(r=>r.user_id).filter(Boolean))];let names={};
   if(ids.length){const {data:profiles}=await db.from('profiles').select('id,username').in('id',ids);names=Object.fromEntries((profiles||[]).map(p=>[p.id,p.username]));}
   if(req!==radioAdminRequest)return;

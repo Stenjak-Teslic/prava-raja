@@ -1,0 +1,38 @@
+
+name: Prava Raja - Automatske vijesti
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vijesti:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preuzmi repozitorij
+        uses: actions/checkout@v4
+
+      - name: Postavi Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instaliraj biblioteke
+        run: pip install feedparser
+
+      - name: Pripremi vijesti
+        run: python vijesti.py
+
+      - name: Sacuvaj nove vijesti
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vijesti.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Automatsko osvjezavanje vijesti"
+            git push
+          fi

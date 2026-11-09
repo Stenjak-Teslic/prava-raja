@@ -111,16 +111,18 @@
 .news-owner-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}.news-owner-bar[hidden],.news-editor[hidden]{display:none!important}.news-editor{background:#111e43;border:1px solid #8057bb;border-radius:15px;padding:17px;margin:14px 0}.news-editor label{display:block;margin:12px 0;color:#d9e1ff}.news-editor input,.news-editor textarea,.news-editor select{display:block;width:100%;margin-top:6px;padding:11px;background:#0a1230;color:white;border:1px solid #6171ae;border-radius:10px}.news-editor textarea{min-height:120px}.news-editor-actions,.news-card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.news-small-btn{background:#292458;border:1px solid #8057bb;border-radius:9px;color:white;padding:8px 11px}.news-editor-status{color:#d9e1ff;min-height:18px}.news-card .news-small-btn{font-size:13px}
 @media(max-width:600px){.news-dialog{padding:15px}.news-tools button{padding:8px 10px}}
 
-/* Kutak za raju: lokalno vrijeme u Teslicu i kratka dobrodoslica */
+/* Puls Prave Raje */
 .raja-corner{position:relative;background:linear-gradient(145deg,#211345,#111b3d 62%,#10142e);border:1px solid #a53acb;box-shadow:0 0 16px #a91bb32b,inset 0 0 20px #5b196024}
 .raja-corner::before{content:"";position:absolute;top:0;left:18px;right:18px;height:2px;background:linear-gradient(90deg,transparent,#ff32c5,#7a66ff,transparent)}
-.raja-corner h3{font-size:18px;margin-bottom:13px}
-.raja-clock{text-align:center;padding:8px 4px 15px;border-bottom:1px solid #ffffff22}
-.raja-clock .clock-time{font-size:clamp(32px,3vw,43px);font-weight:800;letter-spacing:2px;line-height:1.15;font-variant-numeric:tabular-nums;color:#fff;text-shadow:0 0 18px #ef38d58c}
-.raja-clock .clock-date{font-size:13px;color:#c4ccef;margin-top:8px;text-transform:capitalize}
-.raja-clock .clock-place{font-size:11px;color:#e7a7f2;letter-spacing:1px;text-transform:uppercase;margin-top:7px}
-.raja-note{padding-top:14px}.raja-note strong{font-size:13px;color:#ffc0f3}.raja-note p{font-size:13px;line-height:1.65;color:#d7dff7;margin:7px 0 0}
-@media(prefers-reduced-motion:reduce){.raja-corner{scroll-behavior:auto}}
+.raja-corner h3{font-size:18px;margin:0 0 14px}
+.raja-pulse-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.raja-pulse-stat{background:#222348;border:1px solid #5d438f;border-radius:13px;padding:15px 7px;text-align:center;min-width:0}
+.raja-pulse-stat .pulse-icon{display:block;font-size:23px;margin-bottom:5px}
+.raja-pulse-stat .pulse-number{display:block;font-size:29px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 13px #ef38d575}
+.raja-pulse-stat small{display:block;font-size:12px;color:#d3c8ec;margin-top:3px}
+.raja-pulse-status{font-size:11px;color:#c4ccef;min-height:18px;margin:11px 0 0;text-align:center}
+.raja-note{margin-top:12px;background:#211e47;border-radius:12px;padding:13px;border:1px solid #59417c}
+.raja-note strong{font-size:13px;color:#ffc0f3}.raja-note p{font-size:13px;line-height:1.65;color:#d7dff7;margin:7px 0 0}
 </style>
 </head>
 <body>
@@ -129,7 +131,7 @@
 <main>
 <section class="left"><div class="panel neon pad"><div class="center"><div class="radio-symbol">◉</div><h2>Radio Studio M Teslić</h2><p class="muted">Slušaj uživo!</p></div><div class="equalizer" aria-hidden="true"><i style="--h:24px"></i><i style="--h:45px"></i><i style="--h:36px"></i><i style="--h:65px"></i><i style="--h:52px"></i><i style="--h:32px"></i><i style="--h:71px"></i><i style="--h:41px"></i><i style="--h:58px"></i><i style="--h:35px"></i><i style="--h:64px"></i><i style="--h:29px"></i><i style="--h:50px"></i><i style="--h:22px"></i></div><button class="play" id="play" aria-label="Pokreni radio">▶</button><p class="center"><span id="radioStatus" class="muted">Spremno za reprodukciju</span></p><label for="vol">🔊 Jačina zvuka</label><input id="vol" class="volume" type="range" min="0" max="100" value="75"><div class="song"><strong>🎵 Radio Studio M</strong><small>Informacije o pjesmi nisu dostupne</small></div><audio id="audio" preload="none"></audio><p class="info">🎶 Radio Studio M Teslić uživo. Pritisni ▶ za slušanje. Ako stream nije dostupan, pokušaj ponovo kasnije.</p></div><div class="panel side-menu"><button id="publicChatSide" type="button">💬 Javni chat</button><button data-dm-open type="button">✉ Privatne poruke</button><button id="onlineSide" type="button">♙ Online raja</button><button id="myProfileSide" type="button">♙ Moj profil</button><button id="settingsSide" type="button">⚙ Postavke</button></div></section>
 <section class="panel chat"><div class="chat-head"><div><h2>💬 Javni chat – Prava Raja</h2><p class="muted">Družimo se, pričamo, slušamo muziku i uživamo! ♡</p></div><div class="status" id="chatStatus"><span class="dot" style="background:#8b94ac"></span><span id="chatStatusText">Priprema...</span></div></div><div class="messages" id="chatMessages" aria-live="polite"><p class="chat-empty">Učitavanje poruka...</p></div><form class="chat-input" id="chatForm"><input id="chatText" aria-label="Nova poruka" placeholder="Prijavi se da napišeš poruku..." maxlength="500" autocomplete="off" disabled required><button id="chatSend" class="pink" type="submit" disabled aria-label="Pošalji poruku">➤</button></form><div class="chat-note" id="chatNote" role="status" aria-live="polite">Za razgovor je potrebna prijava. Najviše 500 znakova po poruci.</div></section>
-<aside class="right"><div class="panel neon pad" id="wishesPanel"><h3>🎵 Muzičke želje i pozdravi</h3><p class="info">Pošalji muzičku želju ili pozdrav voditelju Radija Studio M. Poruku vide samo ovlašteni voditelji.</p><form id="wishForm" class="wish-form"><label for="wish" class="info">Tvoja poruka (do 500 znakova)</label><textarea id="wish" maxlength="500" required placeholder="Npr. Pozdrav za svu raju iz Teslića! Želio bih čuti..."></textarea><button id="wishSend" class="pink" style="width:100%" type="submit">➤ Pošalji želju</button></form><p id="wishFeedback" class="wish-feedback" role="status" aria-live="polite">Prijavi se za slanje želje.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div><section class="panel pad raja-corner" aria-label="Vrijeme i kutak za raju"><h3>💜 Kutak za raju</h3><div class="raja-clock"><div class="clock-time" id="rajaClock" role="timer" aria-label="Trenutno vrijeme u Tesliću">--:--</div><div class="clock-date" id="rajaDate">Vrijeme u Tesliću</div><div class="clock-place">🕒 Teslić · BiH</div></div><div class="raja-note"><strong>📢 Poruka za raju</strong><p>Gdje god da si, uvijek si među svojom rajom! ❤️ Uživaj uz Radio Studio M, druži se i pošalji pozdrav. 🎶</p></div></section></aside>
+<aside class="right"><div class="panel neon pad" id="wishesPanel"><h3>🎵 Muzičke želje i pozdravi</h3><p class="info">Pošalji muzičku želju ili pozdrav voditelju Radija Studio M. Poruku vide samo ovlašteni voditelji.</p><form id="wishForm" class="wish-form"><label for="wish" class="info">Tvoja poruka (do 500 znakova)</label><textarea id="wish" maxlength="500" required placeholder="Npr. Pozdrav za svu raju iz Teslića! Želio bih čuti..."></textarea><button id="wishSend" class="pink" style="width:100%" type="submit">➤ Pošalji želju</button></form><p id="wishFeedback" class="wish-feedback" role="status" aria-live="polite">Prijavi se za slanje želje.</p></div><div class="panel pad"><h3>🟢 Online raja</h3><p class="info" id="onlineInfo">Prijavi se da vidiš ko je trenutno online.</p><p class="online-count" id="onlineCount"></p><div class="online-list" id="onlineList"><p class="online-empty">Prijava je potrebna.</p></div><button class="pink" style="width:100%" id="onlineShow" type="button">Prikaži članove</button></div><section class="panel pad raja-corner" aria-label="Puls Prave Raje"><h3>💜 Puls PRAVE RAJE</h3><div class="raja-pulse-stats"><div class="raja-pulse-stat"><span class="pulse-icon" aria-hidden="true">👥</span><strong class="pulse-number" id="pulseMembers">—</strong><small>Ukupno članova</small></div><div class="raja-pulse-stat"><span class="pulse-icon" aria-hidden="true">💬</span><strong class="pulse-number" id="pulseMessages">—</strong><small>Poruka danas</small></div></div><p class="raja-pulse-status" id="pulseStatus" role="status">Prijavi se za statistiku zajednice.</p><div class="raja-note"><strong>📢 Poruka za raju</strong><p>Gdje god da si, ovdje si među svojima! ❤️💜</p></div></section></aside>
 </main><footer>🎧 <strong>Prava Raja ✨</strong> &nbsp; | &nbsp; Nezavisni portal za druženje uz muziku &nbsp; | &nbsp; Raja iz BiH i dijaspore ♡</footer><div id="toast" class="toast" role="status"></div>
 
 <div id="newsModal" class="news-modal" role="dialog" aria-modal="true" aria-labelledby="newsTitle" aria-hidden="true">
@@ -1312,15 +1314,48 @@ document.getElementById('settingsLogout').addEventListener('click',()=>{closeSet
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNews();});
  })();</script>
 <script>
-/* Sat prikazuje vrijeme u Teslicu, bez vanjskih servisa. */
+/* Puls Prave Raje: samo zbirni podaci, bez privatnih poruka. */
 (function(){
- const clock=document.getElementById('rajaClock');
- const date=document.getElementById('rajaDate');
- if(!clock||!date)return;
- const timeFmt=new Intl.DateTimeFormat('bs-BA',{timeZone:'Europe/Sarajevo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
- const dateFmt=new Intl.DateTimeFormat('bs-BA',{timeZone:'Europe/Sarajevo',weekday:'long',day:'numeric',month:'long',year:'numeric'});
- function update(){const now=new Date();clock.textContent=timeFmt.format(now);date.textContent=dateFmt.format(now);}
- update();setInterval(update,30000);
+ const members=document.getElementById('pulseMembers');
+ const messages=document.getElementById('pulseMessages');
+ const status=document.getElementById('pulseStatus');
+ let currentUser=null,loading=false,version=0;
+ // Pocetak danasnjeg dana po vremenu u Bosni (ukljucujuci ljetno racunanje vremena).
+ function sarajevoMidnight(){
+  const now=new Date();
+  const dateParts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Sarajevo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const part=k=>Number(dateParts.find(x=>x.type===k).value);
+  const utcMidnight=Date.UTC(part('year'),part('month')-1,part('day'));
+  const offsetParts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Sarajevo',timeZoneName:'shortOffset'}).formatToParts(new Date(utcMidnight));
+  const offset=offsetParts.find(x=>x.type==='timeZoneName')?.value||'GMT+1';
+  const match=offset.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+  const minutes=match?(match[1]==='-'?-1:1)*(Number(match[2])*60+Number(match[3]||0)):60;
+  return new Date(utcMidnight-minutes*60000).toISOString();
+ }
+ async function refresh(){
+  if(!db||!currentUser||loading||document.hidden)return;
+  const run=version;loading=true;
+  try{
+   const [m,c]=await Promise.all([
+    db.from('profiles').select('id',{count:'exact',head:true}),
+    db.from('chat_messages').select('id',{count:'exact',head:true}).gte('created_at',sarajevoMidnight())
+   ]);
+   if(run!==version)return;
+   members.textContent=m.error?'—':new Intl.NumberFormat('bs-BA').format(m.count??0);
+   messages.textContent=c.error?'—':new Intl.NumberFormat('bs-BA').format(c.count??0);
+   status.textContent=m.error||c.error?'Dio statistike trenutno nije dostupan.':'Brojevi se automatski osvježavaju.';
+  }catch(_){if(run===version)status.textContent='Statistika trenutno nije dostupna.';}
+  finally{loading=false;}
+ }
+ function setUser(user){currentUser=user||null;version++;
+  if(!currentUser){members.textContent='—';messages.textContent='—';status.textContent='Prijavi se za statistiku zajednice.';return;}
+  status.textContent='Učitavanje statistike...';refresh();
+ }
+ if(db){db.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>setUser(session?.user),0);});
+  db.auth.getSession().then(({data})=>setUser(data.session?.user)).catch(()=>{});
+ }
+ setInterval(refresh,60000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();
 </script>
 </body></html>

@@ -917,7 +917,23 @@ async function loadRadioWishes(){
      await loadRadioWishes();
     });actions.append(button);
    }
-   card.append(title,date,msg,actions);radioAdminList.append(card);
+    if(item.status==='read'){
+     const deleteButton=document.createElement('button');
+     deleteButton.type='button';deleteButton.className='radio-admin-action';
+     deleteButton.textContent='🗑️ Obriši poruku';
+     deleteButton.style.borderColor='#f16c85';
+     deleteButton.addEventListener('click',async()=>{
+      if(!radioAdminRole||!radioAdminModal.classList.contains('open'))return;
+      if(!confirm('Trajno obrisati ovu pročitanu muzičku želju? Ovu radnju nije moguće poništiti.'))return;
+      deleteButton.disabled=true;
+      const {error}=await db.rpc('delete_read_music_wish',{wish_id:item.id});
+      if(error){notice('Brisanje nije uspjelo: '+friendlyError(error));deleteButton.disabled=false;return;}
+      notice('Pročitana poruka je trajno obrisana. 🗑️');
+      await loadRadioWishes();
+     });
+     actions.append(deleteButton);
+    }
+    card.append(title,date,msg,actions);radioAdminList.append(card);
   }
  }catch(err){if(req===radioAdminRequest)radioAdminInfo.textContent='Ne mogu učitati poruke: '+friendlyError(err);}
 }

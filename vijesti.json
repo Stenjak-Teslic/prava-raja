@@ -1,11 +1,323 @@
 [
   {
+    "naslov": "Udruženja pozvala novu Skupštinu Kantona 10 da preispita koncesije za elektrane",
+    "opis": "Koordinacija građanskih inicijativa i udruga s područja Kantona 10 upozorila je na nastavak odobravanja solarnih i vjetroelektrana.",
+    "link": "https://www.klix.ba/vijesti/bih/udruzenja-pozvala-novu-skupstinu-kantona-10-da-preispita-koncesije-za-elektrane/261116280",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522604+00:00"
+  },
+  {
+    "naslov": "Uk: Medicinski fakultet UNSA je naša najbolja diplomatska akademija",
+    "opis": "U Narodnom pozorištu Sarajevo večeras je održana svečana akademija povodom 80 godina rada i razvoja Medicinskog fakulteta Univerziteta u Sarajevu.",
+    "link": "https://www.klix.ba/vijesti/bih/uk-medicinski-fakultet-unsa-je-nasa-najbolja-diplomatska-akademija/261116343",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522632+00:00"
+  },
+  {
+    "naslov": "Studija Harvarda upozorava na rast zagađenja iz američkih data centara zbog AI-ja",
+    "opis": "Studija Univerziteta Harvard pokazala je da su 403 najveća data centra u SAD-u za godinu proizvela oko 28,3 miliona tona CO2.",
+    "link": "https://www.klix.ba/scitech/tehnologija/studija-harvarda-upozorava-na-rast-zagadenja-iz-americkih-data-centara-zbog-ai-ja/261116278",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522651+00:00"
+  },
+  {
+    "naslov": "U Livnu u utorak počinje vakcinacija protiv sezonske gripe, naručeno 950 doza",
+    "opis": "Vakcinacija protiv sezonske gripe u Livnu počinje u utorak, 17. novembra, u prostorijama Zavoda za javno zdravstvo Kantona 10.",
+    "link": "https://www.klix.ba/vijesti/bih/u-livnu-u-utorak-pocinje-vakcinacija-protiv-sezonske-gripe-naruceno-950-doza/261116289",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522668+00:00"
+  },
+  {
+    "naslov": "Igor Dodik o programu Studentske liste: \"Republika Srpska i Srbija su jedno, zajedno smo jači\"",
+    "opis": "Igor Dodik generalni sekretar SNSD-a oglasio se na X-u i pozdravio program Studentske liste u Srbiji, uz poruku da mu je drago što razumiju koliko je važno čuvati RS, njen ustavni položaj i Dejton.",
+    "link": "https://www.klix.ba/vijesti/bih/igor-dodik-o-programu-studentske-liste-republika-srpska-i-srbija-su-jedno-zajedno-smo-jaci/261116356",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522689+00:00"
+  },
+  {
+    "naslov": "Na Generalnoj skupštini Evropskog saveza novinskih agencija ruski TASS isključen iz članstva saveza",
+    "opis": "Generalna skupština Evropskog saveza novinskih agencija održana je u Larnaci, u okviru konferencije koju je organizirala Kiparska novinska agencija.",
+    "link": "https://www.klix.ba/vijesti/svijet/na-generalnoj-skupstini-evropskog-saveza-novinskih-agencija-ruski-tass-iskljucen-iz-clanstva-saveza/261116309",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522707+00:00"
+  },
+  {
+    "naslov": "Općina Stari Grad o osipanju zemljišta u Komatinu: Sve se desilo na nekretnini ViK-a, šljunak dodatno opteretio padinu",
+    "opis": "Općina Stari Grad oglasila se povodom klizišta u ulici Komatin te dodatno pojasnila situaciju o tome kako nije riječ o klizištu na lokalitetu Curine njive.",
+    "link": "https://www.klix.ba/vijesti/bih/opcina-stari-grad-o-osipanju-zemljista-u-komatinu-sve-se-desilo-na-nekretnini-vik-a-sljunak-dodatno-opteretio-padinu/261116358",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522726+00:00"
+  },
+  {
+    "naslov": "Pao sistem američke aviokompanije United Airlines: Avioni zaglavljeni na pistama, putnici ne znaju kada će poletjeti",
+    "opis": "Američka aviokompanija United Airlines suočava se s velikim padom sistema zbog kojeg dio aviona ne može dobiti podatke potrebne za polijetanje, a putnici prijavljuju kašnjenja i čekanje u avionima na pisti.",
+    "link": "https://www.klix.ba/vijesti/svijet/pao-sistem-americke-aviokompanije-united-airlines-avioni-zaglavljeni-na-pistama-putnici-ne-znaju-kada-ce-poletjeti/261116359",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522747+00:00"
+  },
+  {
+    "naslov": "Delegacija Kosova u posjeti Vladi Kantona Sarajevo, razgovarano o mogućnostima jače saradnje",
+    "opis": "Delegacija Kosova, predvođena ministrom regionalnog razvoja Rasimom Demirijem, boravila je u službenoj posjeti Vladi Kantona Sarajevo.",
+    "link": "https://www.klix.ba/vijesti/bih/delegacija-kosova-u-posjeti-vladi-kantona-sarajevo-razgovarano-o-mogucnostima-jace-saradnje/261116335",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522763+00:00"
+  },
+  {
+    "naslov": "Šejla Zonić u crnom od glave do pete: Za izlazak u Beogradu odabrala upečatljive hlače s jednom kraćom nogavicom",
+    "opis": "Bosanskohercegovačka pjevačica Šejla Zonić danas je na Instagramu podijelila fotografije outfita koji je nosila na koncertu Nikole Rokvića u Beogradu, a pažnju su privukle hlače s jednom kraćom nogavicom.",
+    "link": "https://www.klix.ba/lifestyle/modailjepota/sejla-zonic-u-crnom-od-glave-do-pete-za-izlazak-u-beogradu-odabrala-upecatljive-hlace-s-jednom-kracom-nogavicom/261116332",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522783+00:00"
+  },
+  {
+    "naslov": "Evropska unija planira sankcije protiv Irana nakon sabotaže rashladnih sistema",
+    "opis": "Visoka predstavnica Evropske unije za vanjske poslove i sigurnosnu politiku Kaja Kallas izjavila je danas nakon sastanka ministara vanjskih poslova u Briselu da su posljednji kibernetički napadi pokazali da evropske zemlje nisu izvan dosega Teherana.",
+    "link": "https://www.klix.ba/vijesti/svijet/evropska-unija-planira-sankcije-protiv-irana-nakon-sabotaze-rashladnih-sistema/261116354",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522803+00:00"
+  },
+  {
+    "naslov": "Matt Damon: Moj kolega Ben Affleck je bio oduševljen ulogom Pattinsona u \"The Odysseyu\", fantastičan je",
+    "opis": "Ben Affleck bio je oduševljen ulogom Roberta Pattinsona u filmu “The Odyssey” Christophera Nolana. To je otkrio njegov dugogodišnji prijatelj Matt Damon, koji u filmu igra glavnu ulogu.",
+    "link": "https://www.klix.ba/magazin/film-tv/matt-damon-moj-kolega-ben-affleck-je-bio-odusevljen-ulogom-pattinsona-u-the-odysseyu-fantastican-je/261116352",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522823+00:00"
+  },
+  {
+    "naslov": "Lula da Silva pružio veliku podršku Pedru Sanchezu uoči izbora u Španiji: \"Jako je važno da ti pobijediš\"",
+    "opis": "Brazilski predsjednik Luiz Inacio Lula da Silva doputovao je s Filipina u Madrid da bi usred predizborne kampanje podržao španskog premijera Pedra Sancheza, koji, kao i Lula prije preokreta u Brazilu, zaostaje u anketama.",
+    "link": "https://www.klix.ba/vijesti/svijet/lula-da-silva-pruzio-veliku-podrsku-pedru-sanchezu-uoci-izbora-u-spaniji-jako-je-vazno-da-ti-pobijedis/261116342",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522843+00:00"
+  },
+  {
+    "naslov": "Ginkel čestitao novom sazivu Predsjedništva BiH preuzimanje dužnosti: \"SAD pridaje veliki značaj odnosima s BiH\"",
+    "opis": "Otpravnik poslova Ambasade SAD-a u BiH John Ginkel čestitao je novoizabranim članovima Predsjedništva BiH inauguraciju i preuzimanje dužnosti.",
+    "link": "https://www.klix.ba/vijesti/bih/ginkel-cestitao-novom-sazivu-predsjednistva-bih-preuzimanje-duznosti-sad-pridaje-veliki-znacaj-odnosima-s-bih/261116344",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522861+00:00"
+  },
+  {
     "naslov": "Pattinson prije 16 godina sumnjao da može igrati Jamesa Bonda: \"Da to radim sada, bio bih prilično loš\"",
     "opis": "Nakon što je Amazon MGM Studios objavio da je Robert Pattinson novi James Bond, mrežama kruži snimak iz 2010. godine na kojem ga novinar pita bi li volio glumiti agenta 007, a fanovi su pronašli i scenu iz \"Sumraka\" koja kao da je najavila ovu ulogu.",
     "link": "https://www.klix.ba/magazin/film-tv/pattinson-prije-16-godina-sumnjao-da-moze-igrati-jamesa-bonda-da-to-radim-sada-bio-bih-prilicno-los/261116327",
     "izvor": "Klix.ba",
     "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.367291+00:00"
+    "datum": "2026-11-17T00:55:13.522891+00:00"
+  },
+  {
+    "naslov": "Srbija i zvanično u baražu u kojem je i BiH, Zmajevi čekaju još jednog potencijalnog rivala",
+    "opis": "Reprezentacija Srbije izgubila je večeras u Volosu od Grčke 1:0, ali je i definitivno izborila baraž za opstanak u Ligi A, u kojem igra i BiH. Posljednji mogući rival Zmajeva bit će poznat sutra nakon utakmice Norveške i Danske.",
+    "link": "https://www.klix.ba/sport/nogomet/srbija-i-zvanicno-u-barazu-u-kojem-je-i-bih-zmajevi-cekaju-jos-jednog-potencijalnog-rivala/261116357",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522918+00:00"
+  },
+  {
+    "naslov": "Grčka pobijedila Srbiju i ipak ostala bez četvrtfinala, Slovenija u baražu",
+    "opis": "Nogometna reprezentacija Grčke savladala je Srbiju rezultatom 1:0 u utakmici posljednjeg, šestog kola Grupe 2 Lige A UEFA Lige nacija, ali uprkos trijumfu nije uspjela izboriti plasman u četvrtfinale. U drugoj utakmici iste grupe Njemačka je u Berlinu deklasirala Nizozemsku sa 5:0.",
+    "link": "https://www.klix.ba/sport/nogomet/grcka-pobijedila-srbiju-i-ipak-ostala-bez-cetvrtfinala-slovenija-u-barazu/261116355",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522939+00:00"
+  },
+  {
+    "naslov": "Sarajevo: Nakon padavina se aktiviralo klizište u ulici Komatin, zemlja se odronila na saobraćajnicu",
+    "opis": "Nakon padavina aktiviralo se klizište u ulici Komatin u Sarajevu. Zemlja se kod igrališta, odronila na saobraćajnicu.",
+    "link": "https://www.klix.ba/vijesti/bih/sarajevo-nakon-padavina-se-aktiviralo-kliziste-u-ulici-komatin-zemlja-se-odronila-na-saobracajnicu/261116351",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522955+00:00"
+  },
+  {
+    "naslov": "Iran najavio skoro pokretanje prvog domaćeg fuzijskog reaktora",
+    "opis": "Iran priprema puštanje u rad svog prvog nuklearnog fuzijskog reaktora, razvijenog domaćom tehnologijom, izjavio je šef Atomske organizacije Irana (AEOI) Mohammad Eslami.",
+    "link": "https://www.klix.ba/vijesti/svijet/iran-najavio-skoro-pokretanje-prvog-domaceg-fuzijskog-reaktora/261116353",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522972+00:00"
+  },
+  {
+    "naslov": "Ljekari upozoravaju na bebe koje se rađaju zaražene ospicama: \"Stanje može izazvati ozbiljne komplikacije\"",
+    "opis": "Američki ljekari prvi put nakon više decenija upozoravaju na slučajeve kongenitalnih ospica, stanja u kojem trudnica prenese virus na fetus u maternici.",
+    "link": "https://www.klix.ba/lifestyle/zdravlje/ljekari-upozoravaju-na-bebe-koje-se-radaju-zarazene-ospicama-stanje-moze-izazvati-ozbiljne-komplikacije/261116350",
+    "izvor": "Klix.ba",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.522989+00:00"
+  },
+  {
+    "naslov": "\"Dlanovi neka se ne štede, navijačka pjesma neka krene\": Pjesma dana i \"Igraj Bosno\"",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/radio/aktuelno/igraj-bosno-navijacka-pjesma-dana/661091",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961866+00:00"
+  },
+  {
+    "naslov": "Odron na Širokači: Oglasili se iz Općine Stari Grad i prozvali ViK",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/lokalne-teme/odron-na-sirokaci-opcina-stari-grad-respondirala/661111",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961887+00:00"
+  },
+  {
+    "naslov": "Test s Harvarda star više od 150 godina i dalje zadaje glavobolje: Možete li ga riješiti?",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/magazin/zanimljivosti/harvardov-test-u-matematici-izazov-za-sve/661090",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961901+00:00"
+  },
+  {
+    "naslov": "Četiri horoskopska znaka koja se ne boje rizika: Uvijek su spremni zakoračiti u nepoznato",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/magazin/zanimljivosti/cetiri-horoskopska-znaka-spremni-za-rizik/661045",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961913+00:00"
+  },
+  {
+    "naslov": "U Sarajevu otvorena izložba koja pomjera granice dizajna: Više od 100 umjetnika na jednom mjestu",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/metromahala/kultura/izlozba-ekscentricnost-u-sarajevu-umjetnost-dizajn/661110",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961925+00:00"
+  },
+  {
+    "naslov": "Šteta: Kapidžić je meni, uz svo poštovanje, totalno nebitan lik",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/lokalne-teme/steta-kapidzyc-nebitan-lik/661108",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961936+00:00"
+  },
+  {
+    "naslov": "Rumuni samouvjereni pred duel u Zenici, Hagi poručio: \"Vjerujem da ćemo slaviti\"",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/sport/nogomet/rumuni-samouvjereni-pred-duel-u-zenici-hagi-vjerujem-u-slavlje/661109",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961951+00:00"
+  },
+  {
+    "naslov": "Haos u bankama širom SAD-a: Klijenti prijavljuju velike probleme",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/haos-u-bankama-sad-u-problemi-s-pristupom-racunima/661107",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961962+00:00"
+  },
+  {
+    "naslov": "Pucnjava u New Yorku: Troje ranjenih, napadač se zabarikadirao u stambenom kompleksu",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/pucnjava-u-bronxu-troje-ranjenih-napadac-se-zabarikadirao/661105",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961972+00:00"
+  },
+  {
+    "naslov": "Ko je sve bio na inauguraciji u Predsjedništvu BiH? Pogledajte fotografije",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/multimedia/foto/inauguracija-sjednica-predsjednistva-bih-fotografije/661103",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961983+00:00"
+  },
+  {
+    "naslov": "Slaven Bilić želi izbjeći BiH u baražu: \"To bi bilo više od normalne utakmice\"",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/sport/nogomet/slaven-bilic-izbjeci-bih-u-barazu-normalna-utakmica/661104",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.961996+00:00"
+  },
+  {
+    "naslov": "Svi su gledali u njenu haljinu: Darijana Filipović privukla pažnju elegantnim modnim izdanjem",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/magazin/showbiz/darijana-filipovic-hrvatska-clanica-predsjednistva-bih/661102",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962007+00:00"
+  },
+  {
+    "naslov": "Alarm iz Njemačke: Zanatstvo u velikoj krizi, svake godine nestaje do 80.000 radnih mjesta",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/zanatstvo-u-njemackoj-u-krizi-nestaje-80000-radnih-mjesta/661101",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962035+00:00"
+  },
+  {
+    "naslov": "AfD prodaje čokoladne figure Svetog Nikole sa stranačkim obilježjem: Crkva oštro reagovala",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/afd-prodaje-cokoladne-figure-svetog-nikole/661100",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962047+00:00"
+  },
+  {
+    "naslov": "Italijanski bankarski gigant preuzima njemačku Commerzbanku: Planira ukidanje 7.000 radnih mjesta",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/italijanski-bankarski-gigant-preuzima-commerzbank-ukidanje-radnih-mjesta/661098",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962057+00:00"
+  },
+  {
+    "naslov": "Mercedes uvodi revoluciju na cestama: Vozit ćete 130 km/h bez ruku na volanu",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/auto-moto/auto-moto-zanimljivosti/mercedes-revolucija-automatska-voznja/661099",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962068+00:00"
+  },
+  {
+    "naslov": "Porodicama u Gazi stiže pomoć iz BiH: Za samo šest dana prikupljena sredstva za 300 šatora",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/humanitarna-pomoc-za-gazu-prikupljeno-300-satora/661097",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962079+00:00"
+  },
+  {
+    "naslov": "Edin Ramić upozorava: \"Opozicija u RS-u sve je malobrojnija, a bošnjački predstavnici sve slabiji\"",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/edin-ramic-opozicija-u-rs-u-sve-malobrojnija-bosnjaci-slabiji/661095",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962094+00:00"
+  },
+  {
+    "naslov": "Upozorenje s Wall Streeta: Pucanje balona umjetne inteligencije moglo bi izazvati novu recesiju",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/svijet/upozorenje-s-wall-streeta-pucanje-balona-umjetne-inteligencije/661096",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962106+00:00"
+  },
+  {
+    "naslov": "UNDP prodaje vozila u Sarajevu: Poznat termin razgledanja i rok za ponude",
+    "opis": "",
+    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/undp-prodaja-vozila-u-sarajevu-termin-razgledanja-rok-ponude/661094",
+    "izvor": "Radio Sarajevo",
+    "kategorija": "BiH",
+    "datum": "2026-11-17T00:55:13.962115+00:00"
   },
   {
     "naslov": "Srbija i zvanično u baražu sa BiH, Zmajevi čekaju još jednog potencijalnog rivala",
@@ -16,36 +328,12 @@
     "datum": "2026-11-16T21:43:30.367325+00:00"
   },
   {
-    "naslov": "Grčka pobijedila Srbiju i ipak ostala bez četvrtfinala, Slovenija u baražu",
-    "opis": "Nogometna reprezentacija Grčke savladala je Srbiju rezultatom 1:0 u utakmici posljednjeg, šestog kola Grupe 2 Lige A UEFA Lige nacija, ali uprkos trijumfu nije uspjela izboriti plasman u četvrtfinale. U drugoj utakmici iste grupe Njemačka je u Berlinu deklasirala Nizozemsku sa 5:0.",
-    "link": "https://www.klix.ba/sport/nogomet/grcka-pobijedila-srbiju-i-ipak-ostala-bez-cetvrtfinala-slovenija-u-barazu/261116355",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.367354+00:00"
-  },
-  {
     "naslov": "Nakon padavina se aktiviralo klizište na Širokači, zemlja se odronila na saobraćajnicu",
     "opis": "Nakon padavina aktiviralo se klizište na Širokači u Sarajevu. Zemlja se u ulici Komatin, kod igrališta, odronila na saobraćajnicu.",
     "link": "https://www.klix.ba/vijesti/bih/nakon-padavina-se-aktiviralo-kliziste-na-sirokaci-zemlja-se-odronila-na-saobracajnicu/261116351",
     "izvor": "Klix.ba",
     "kategorija": "BiH",
     "datum": "2026-11-16T21:43:30.367389+00:00"
-  },
-  {
-    "naslov": "Iran najavio skoro pokretanje prvog domaćeg fuzijskog reaktora",
-    "opis": "Iran priprema puštanje u rad svog prvog nuklearnog fuzijskog reaktora, razvijenog domaćom tehnologijom, izjavio je šef Atomske organizacije Irana (AEOI) Mohammad Eslami.",
-    "link": "https://www.klix.ba/vijesti/svijet/iran-najavio-skoro-pokretanje-prvog-domaceg-fuzijskog-reaktora/261116353",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.367404+00:00"
-  },
-  {
-    "naslov": "Ljekari upozoravaju na bebe koje se rađaju zaražene ospicama: \"Stanje može izazvati ozbiljne komplikacije\"",
-    "opis": "Američki ljekari prvi put nakon više decenija upozoravaju na slučajeve kongenitalnih ospica, stanja u kojem trudnica prenese virus na fetus u maternici.",
-    "link": "https://www.klix.ba/lifestyle/zdravlje/ljekari-upozoravaju-na-bebe-koje-se-radaju-zarazene-ospicama-stanje-moze-izazvati-ozbiljne-komplikacije/261116350",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.367419+00:00"
   },
   {
     "naslov": "Miley Cyrus o nominaciji za Grammyja s Dolly Parton: Nedostaju mi njeni pozivi na ovakve velike dane",
@@ -160,110 +448,6 @@
     "datum": "2026-11-16T21:43:30.367644+00:00"
   },
   {
-    "naslov": "Haos u bankama širom SAD-a: Klijenti prijavljuju velike probleme",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/haos-u-bankama-sad-u-problemi-s-pristupom-racunima/661107",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917051+00:00"
-  },
-  {
-    "naslov": "Pucnjava u New Yorku: Troje ranjenih, napadač se zabarikadirao u stambenom kompleksu",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/pucnjava-u-bronxu-troje-ranjenih-napadac-se-zabarikadirao/661105",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917070+00:00"
-  },
-  {
-    "naslov": "Ko je sve bio na inauguraciji u Predsjedništvu BiH? Pogledajte fotografije",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/multimedia/foto/inauguracija-sjednica-predsjednistva-bih-fotografije/661103",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917080+00:00"
-  },
-  {
-    "naslov": "Slaven Bilić želi izbjeći BiH u baražu: \"To bi bilo više od normalne utakmice\"",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/sport/nogomet/slaven-bilic-izbjeci-bih-u-barazu-normalna-utakmica/661104",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917096+00:00"
-  },
-  {
-    "naslov": "Svi su gledali u njenu haljinu: Darijana Filipović privukla pažnju elegantnim modnim izdanjem",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/magazin/showbiz/darijana-filipovic-hrvatska-clanica-predsjednistva-bih/661102",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917105+00:00"
-  },
-  {
-    "naslov": "Alarm iz Njemačke: Zanatstvo u velikoj krizi, svake godine nestaje do 80.000 radnih mjesta",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/zanatstvo-u-njemackoj-u-krizi-nestaje-80000-radnih-mjesta/661101",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917115+00:00"
-  },
-  {
-    "naslov": "AfD prodaje čokoladne figure Svetog Nikole sa stranačkim obilježjem: Crkva oštro reagovala",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/afd-prodaje-cokoladne-figure-svetog-nikole/661100",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917124+00:00"
-  },
-  {
-    "naslov": "Italijanski bankarski gigant preuzima njemačku Commerzbanku: Planira ukidanje 7.000 radnih mjesta",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/italijanski-bankarski-gigant-preuzima-commerzbank-ukidanje-radnih-mjesta/661098",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917133+00:00"
-  },
-  {
-    "naslov": "Mercedes uvodi revoluciju na cestama: Vozit ćete 130 km/h bez ruku na volanu",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/auto-moto/auto-moto-zanimljivosti/mercedes-revolucija-automatska-voznja/661099",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917141+00:00"
-  },
-  {
-    "naslov": "Porodicama u Gazi stiže pomoć iz BiH: Za samo šest dana prikupljena sredstva za 300 šatora",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/humanitarna-pomoc-za-gazu-prikupljeno-300-satora/661097",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917150+00:00"
-  },
-  {
-    "naslov": "Edin Ramić upozorava: \"Opozicija u RS-u sve je malobrojnija, a bošnjački predstavnici sve slabiji\"",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/edin-ramic-opozicija-u-rs-u-sve-malobrojnija-bosnjaci-slabiji/661095",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917161+00:00"
-  },
-  {
-    "naslov": "Upozorenje s Wall Streeta: Pucanje balona umjetne inteligencije moglo bi izazvati novu recesiju",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/upozorenje-s-wall-streeta-pucanje-balona-umjetne-inteligencije/661096",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917169+00:00"
-  },
-  {
-    "naslov": "UNDP prodaje vozila u Sarajevu: Poznat termin razgledanja i rok za ponude",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/undp-prodaja-vozila-u-sarajevu-termin-razgledanja-rok-ponude/661094",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917177+00:00"
-  },
-  {
     "naslov": "Amira Medunjanin za Radiosarajevo.ba: Imam toliko toga zapisanog u tefteru što bih voljela ostvariti",
     "opis": "",
     "link": "https://radiosarajevo.ba/metromahala/teme/amira-medunjanin-koncert-bkc-sevdalinka/661023",
@@ -294,189 +478,5 @@
     "izvor": "Radio Sarajevo",
     "kategorija": "BiH",
     "datum": "2026-11-16T21:43:30.917215+00:00"
-  },
-  {
-    "naslov": "Izrael koristi vještačku inteligenciju za praćenje Palestinaca: U sve uključen i Amazon",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/svijet/izrael-vjestacka-inteligencija-pracenje-palestinaca-amazon/661088",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917223+00:00"
-  },
-  {
-    "naslov": "Koristite Tinder? Ova aplikacija našla se na udaru zbog načina na koji postupa s podacima korisnika",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/magazin/tech/tinder-udara-zbog-podataka-o-korisnicima/661087",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917233+00:00"
-  },
-  {
-    "naslov": "Dodik se oglasio nakon konstituiranja NSRS: Traži poništavanje Schmidtovih odluka",
-    "opis": "",
-    "link": "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/dodik-se-oglasio-nakon-konstituiranja-nsrs/661086",
-    "izvor": "Radio Sarajevo",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T21:43:30.917241+00:00"
-  },
-  {
-    "naslov": "Sedam lica agenta 007: Od legendarnog Seana Conneryja do Roberta Pattinsona",
-    "opis": "Robert Pattinson je sedmi glumac koji će u zvaničnom serijalu igrati Jamesa Bonda. Prije njega, agenta 007 igrali su Sean Connery, George Lazenby, Roger Moore, Timothy Dalton, Pierce Brosnan i Daniel Craig.",
-    "link": "https://www.klix.ba/magazin/film-tv/sedam-lica-agenta-007-od-legendarnog-seana-conneryja-do-roberta-pattinsona/261116305",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870744+00:00"
-  },
-  {
-    "naslov": "Šta se događa kada zimske gume montirate \"naopako\"? Rezultati testa iznenadili i stručnjake",
-    "opis": "Zimske gume obično imaju označen smjer okretanja, ali šta se dešava kad se montiraju obrnuto? Test portala Tyre Reviews pokazao je da takve gume bolje koče na snijegu, ali na mokrom kolovozu znatno ranije gube prianjanje.",
-    "link": "https://www.klix.ba/auto/savjeti/sta-se-dogada-kada-zimske-gume-montirate-naopako-rezultati-testa-iznenadili-i-strucnjake/261116302",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870772+00:00"
-  },
-  {
-    "naslov": "Hrvatska povećava budžet za odbranu na 2,05 milijardi eura, izdvajat će devet puta više od Bosne i Hercegovine",
-    "opis": "Budžet Ministarstva odbrane Hrvatske u 2027. godini rast će s 1,64 na 2,05 milijardi eura, čime će ta zemlja po kriterijima NATO-a za odbranu izdvajat će više od dva posto BDP-a, rekao je premijer Andrej Plenković, objavila je Vlada Hrvatske.",
-    "link": "https://www.klix.ba/vijesti/regija/hrvatska-povecava-budzet-za-odbranu-na-205-milijardi-eura-izdvajat-ce-devet-puta-vise-od-bosne-i-hercegovine/261116258",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870790+00:00"
-  },
-  {
-    "naslov": "Ridley Scott prvog Oscara posvetio pokojnom bratu Tonyju: Njegov rad sigurno bi mu donio ovo priznanje",
-    "opis": "Reditelj Ridley Scott (88) dobio je počasnog Oscara, prvog u karijeri, a nagradu je u snimljenom govoru posvetio bratu Tonyju Scottu, reditelju filma \"Top Gun\", koji je preminuo 2012. godine.",
-    "link": "https://www.klix.ba/magazin/film-tv/ridley-scott-prvog-oscara-posvetio-pokojnom-bratu-tonyju-njegov-rad-sigurno-bi-mu-donio-ovo-priznanje/261116311",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870809+00:00"
-  },
-  {
-    "naslov": "Neugodna situacija za papu Lava u Peruu: Pokušao uhvatiti krunicu pa ga pogodila blizu oka",
-    "opis": "Papu Lava u ponedjeljak je pogodila krunica koju je neko iz mase bacio prema njemu dok je u papamobilu stizao na oproštajnu misu u Peruu.",
-    "link": "https://www.klix.ba/vijesti/svijet/neugodna-situacija-za-papu-lava-u-peruu-pokusao-uhvatiti-krunicu-pa-ga-pogodila-blizu-oka/261116318",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870822+00:00"
-  },
-  {
-    "naslov": "Ferrari \"troši\" šampione: Hoće li Hamilton proći kao Alonso i Vettel?",
-    "opis": "Ferrari je za mnoge vozače ostvarenje sna, ali su Fernando Alonso i Sebastian Vettel u Maranello stigli kao svjetski prvaci, a otišli bez ijedne nove titule. Sličan scenario sada prijeti i Lewisu Hamiltonu.",
-    "link": "https://www.klix.ba/sport/formula1/ferrari-trosi-sampione-hoce-li-hamilton-proci-kao-alonso-i-vettel/261116315",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870834+00:00"
-  },
-  {
-    "naslov": "Potres u rukovodstvu vojske Saudijske Arabije dok trpe gubitke protiv Huta: Al-Ruwaili preuzima i Zajedničke snage",
-    "opis": "Saudijski kralj Salman bin Abdulaziz donio je u ponedjeljak kraljevsku odluku kojom je načelnik Generalštaba general Fayyad Al-Ruwaili zadužen da, uz postojeću funkciju, preuzme i dužnost komandanta Zajedničkih snaga.",
-    "link": "https://www.klix.ba/vijesti/svijet/potres-u-rukovodstvu-vojske-saudijske-arabije-dok-trpe-gubitke-protiv-huta-al-ruwaili-preuzima-i-zajednicke-snage/261116293",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870848+00:00"
-  },
-  {
-    "naslov": "Zanimljiv okršaj: Džeko pobijedio Katića u nogometnom kvizu Bundeslige",
-    "opis": "Edin Džeko i Nikola Katić, saigrači iz Schalkea, odmjerili su znanje u nogometnom kvizu koji je Bundesliga objavila na Instagramu. Na kraju je bolji bio Džeko, koji je slavio rezultatom 3:1.",
-    "link": "https://www.klix.ba/sport/nogomet/zanimljiv-okrsaj-dzeko-pobijedio-katica-u-nogometnom-kvizu-bundeslige/261116310",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870859+00:00"
-  },
-  {
-    "naslov": "Mossad oteo dvojicu iranskih generala tražeći pilota nestalog 1986. godine, jednog su ubili",
-    "opis": "Izraelska obavještajna služba Mossad otela je dvojicu iranskih generala tražeći izraelskog avijatičara Rona Arada, nestalog u Libanu 1986. godine, a jednog od njih ubila je nakon višesedmičnog ispitivanja, objavio je New York Times.",
-    "link": "https://www.klix.ba/vijesti/svijet/mossad-oteo-dvojicu-iranskih-generala-trazeci-pilota-nestalog-1986-godine-jednog-su-ubili/261116221",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870873+00:00"
-  },
-  {
-    "naslov": "Vršajević održao lekciju Rumunima koji su slavili Mladića: \"Provjerite historiju, on je počinio genocid\"",
-    "opis": "Bivši reprezentativac BiH Avdija Vršajević za rumunski GOLAZO.ro osvrnuo se na transparent kojim su rumunski navijači u Beogradu, uoči prošlogodišnje utakmice u Zenici, veličali ratnog zločinca Ratka Mladića.",
-    "link": "https://www.klix.ba/sport/nogomet/vrsajevic-odrzao-lekciju-rumunima-koji-su-slavili-mladica-provjerite-historiju-on-je-pocinio-genocid/261116312",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870886+00:00"
-  },
-  {
-    "naslov": "Šamar iz Nvidije za Jensena Huanga i Silicijsku dolinu: Od njegovog povratka u kompaniju nema ništa",
-    "opis": "Odbor direktora Nvidije ne razmatra mogućnost da Jensena Huanga vrati na mjesto izvršnog direktora, rekao je izvor upoznat sa situacijom za CNBC, uprkos rastućem pritisku investitora i tehnoloških lidera.",
-    "link": "https://www.klix.ba/biznis/ekonomija/samar-iz-nvidije-za-jensena-huanga-i-silicijsku-dolinu-od-njegovog-povratka-u-kompaniju-nema-nista/261116308",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870898+00:00"
-  },
-  {
-    "naslov": "Robert Pattinson o prilici da igra Bonda: Reći da je ova uloga ostvarenje sna je premalo, to je čast života",
-    "opis": "Robert Pattinson, kojeg je Amazon MGM u ponedjeljak predstavio kao novog Jamesa Bonda, poručio je da mu je uloga agenta 007 čast života i ostvarenje sna.",
-    "link": "https://www.klix.ba/magazin/film-tv/robert-pattinson-o-prilici-da-igra-bonda-reci-da-je-ova-uloga-ostvarenje-sna-je-premalo-to-je-cast-zivota/261116301",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870910+00:00"
-  },
-  {
-    "naslov": "Nominacije za Grammy zaobišle Harryja Stylesa i hip-hop, Dolly Parton među iznenađenjima",
-    "opis": "Objavljene su nominacije za Grammy nagrade 2027. godine, a listu su obilježile dominacija izvođačica, izostanak hip-hopa u glavnim kategorijama i nekoliko iznenađenja.",
-    "link": "https://www.klix.ba/magazin/muzika/nominacije-za-grammy-zaobisle-harryja-stylesa-i-hip-hop-dolly-parton-medu-iznenadenjima/261116298",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870921+00:00"
-  },
-  {
-    "naslov": "Zmajevi u odličnom raspoloženju odradili posljednji trening pred Rumuniju",
-    "opis": "Nogometna reprezentacija Bosne i Hercegovine večeras je na stadionu \"Asim Ferhatović Hase\" u Sarajevu odradila posljednji trening pred utakmicu 6. kola Lige nacija protiv Rumunije, koja se igra sutra od 20:45 sati na Bilinom polju u Zenici.",
-    "link": "https://www.klix.ba/sport/nogomet/zmajevi-u-odlicnom-raspolozenju-odradili-posljednji-trening-pred-rumuniju/261116300",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870937+00:00"
-  },
-  {
-    "naslov": "Sindikat obrazovanja USK traži nastavak pregovora, Vladi dali rok od 48 sati",
-    "opis": "Kantonalni odbor Sindikata srednjeg i visokog obrazovanja FBiH za USK uputio je danas novi poziv za hitan nastavak pregovora o radnom sporu i prekidu štrajka.",
-    "link": "https://www.klix.ba/vijesti/bih/sindikat-obrazovanja-usk-trazi-nastavak-pregovora-vladi-dali-rok-od-48-sati/261116299",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870947+00:00"
-  },
-  {
-    "naslov": "Demokrate u \"ratu\": Van Hollen tvrdi da ima podršku 15 senatora u borbi protiv Schumera",
-    "opis": "Senator Chris Van Hollen, koji izaziva Chucka Schumera za poziciju lidera demokrata u američkom Senatu, tvrdi da ima podršku oko 15 kolega i da je utrka potpuno otvorena.",
-    "link": "https://www.klix.ba/vijesti/svijet/demokrate-u-ratu-van-hollen-tvrdi-da-ima-podrsku-15-senatora-u-borbi-protiv-schumera/261116291",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870959+00:00"
-  },
-  {
-    "naslov": "Jennifer Lopez se našalila s fanom na račun prethodna četiri braka: Ovo je najsmješnija stvar koju sam čula",
-    "opis": "Američka pjevačica i glumica Jennifer Lopez nasmijala se do suza kada je jedan obožavatelj njenu priču o propalim brakovima iskoristio za šalu. Snimak njene reakcije proširio se društvenim mrežama.",
-    "link": "https://www.klix.ba/magazin/showbiz/jennifer-lopez-se-nasalila-s-fanom-na-racun-prethodna-cetiri-braka-ovo-je-najsmjesnija-stvar-koju-sam-cula/261116292",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870972+00:00"
-  },
-  {
-    "naslov": "Studentska lista najavila reviziju ugovora o nabavci oružja za Vojsku Srbije i veće plate",
-    "opis": "Predstavnik Studentske liste Luka Ponorac izjavio je za RTS da će svi aktivni ugovori o nabavci za Vojsku Srbije biti pregledani, a da bi primanja pripadnika vojske trebala porasti za 20 do 30 posto.",
-    "link": "https://www.klix.ba/vijesti/regija/studentska-lista-najavila-reviziju-ugovora-o-nabavci-oruzja-za-vojsku-srbije-i-vece-plate/261116178",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870985+00:00"
-  },
-  {
-    "naslov": "Le Pen poručila ukrajinskom ambasadoru: Ako pobijedim, nema više novca za Kijev",
-    "opis": "Kandidatkinja za predsjednicu Francuske Marine Le Pen poručila je u ponedjeljak ukrajinskom ambasadoru Vadimu Omeljčenku da Francuska, ako ona pobijedi, neće moći nastaviti finansijsku pomoć Ukrajini, ali da će poštovati preuzete obaveze.",
-    "link": "https://www.klix.ba/vijesti/svijet/le-pen-porucila-ukrajinskom-ambasadoru-ako-pobijedim-nema-vise-novca-za-kijev/261116284",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.870998+00:00"
-  },
-  {
-    "naslov": "Zenica ne ukida odjavu s grijanja, zahtjeve predalo 1.290 korisnika",
-    "opis": "Gradsko vijeće Zenice danas nije stavilo van snage zaključak kojim je u oktobru dozvoljeno isključenje sa centralnog grijanja. Direktor JP \"Grijanje\" Muhammed Pašalić upozorava da bi preduzeće, ako se odjave provedu, imalo oko 1,5 miliona KM manje prihoda.",
-    "link": "https://www.klix.ba/vijesti/bih/zenica-ne-ukida-odjavu-s-grijanja-zahtjeve-predalo-1290-korisnika/261116287",
-    "izvor": "Klix.ba",
-    "kategorija": "BiH",
-    "datum": "2026-11-16T18:49:24.871017+00:00"
   }
 ]
